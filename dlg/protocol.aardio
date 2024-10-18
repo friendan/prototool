@@ -1,0 +1,78 @@
+import fonts.fontAwesome;
+import win.ui;
+/*DSG{{*/
+var winform = win.form(text="设置";right=984;bottom=589;bgcolor=16777215)
+winform.add(
+cmdidCtrl={cls="listview";left=402;top=0;right=918;bottom=568;bgcolor=13816530;db=1;dl=1;dt=1;edge=1;fullRow=1;gridLines=1;hscroll=1;msel=false;vscroll=1;z=3};
+lbTip={cls="static";left=63;top=523;right=695;bottom=572;db=1;dl=1;dr=1;transparent=1;z=1};
+sysidCtrl={cls="listview";left=0;top=0;right=269;bottom=562;bgcolor=13816530;db=1;dl=1;dt=1;edge=1;fullRow=1;gridLines=1;hscroll=1;vscroll=1;z=2}
+)
+/*}}*/
+
+var sysidCtrl = winform.sysidCtrl;
+var cmdidCtrl = winform.cmdidCtrl;
+
+sysidCtrl.insertColumn("系统id",50); //insertColumn(列名,列宽,位置,样式)
+sysidCtrl.insertColumn("系统名称", -1);
+sysidCtrl.gridLines = true;
+sysidCtrl.fullRow = true;
+
+cmdidCtrl.insertColumn("命令id",50);
+cmdidCtrl.insertColumn("命令名称", -1);
+cmdidCtrl.gridLines = true;
+cmdidCtrl.fullRow = true;
+
+//启用双缓冲, 可用于实现虚表时避免拖动时闪烁
+sysidCtrl.enableDoubleBuffering()
+cmdidCtrl.enableDoubleBuffering()
+
+//当鼠标指针移到控件上,切换鼠标为手形
+import win.cur;
+var hand = win.cur.load(32649/*_IDC_HAND*/);
+sysidCtrl.wndproc = function(hwnd,message,wParam,lParam){
+    if(message = 0x200/*_WM_MOUSEMOVE*/) { 
+        win.cur.setCur(hand);
+    } 
+}
+cmdidCtrl.wndproc = function(hwnd,message,wParam,lParam){
+    if(message = 0x200/*_WM_MOUSEMOVE*/) { 
+        win.cur.setCur(hand);
+    } 
+}
+
+//自适应列宽度 
+sysidCtrl.adjust = function(cx,cy){
+    sysidCtrl.fillParent(2);
+}
+
+//窗口缩放后会自动触发此函数
+winform.adjust = function( cx,cy,wParam ) {
+	cy = cy - 10
+	var sysidCtrlWidth = 400;
+	sysidCtrl.setPos(0, 0, sysidCtrlWidth, cy);
+	var cmdidCtrlX = sysidCtrlWidth + 10;
+	cmdidCtrl.setPos(cmdidCtrlX, 0, cx-cmdidCtrlX, cy);
+	
+};
+
+
+	
+function initSysidCtrl(){
+	for sysid = 0; 255; 1{
+		sysidCtrl.addItem({ tostring(sysid), "22222222wwwwwwwwwwww系统id"+tostring(sysid) });
+	}
+}
+initSysidCtrl();
+
+function initCmdidCtrl(){
+	for cmdid = 0; 255; 1{
+		cmdidCtrl.addItem({ tostring(cmdid), "22222222wwwwwwwwwwww命令id"+tostring(cmdid) });
+	}
+}
+initCmdidCtrl();
+
+
+
+winform.show();
+win.loopMessage();
+return winform;
