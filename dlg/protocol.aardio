@@ -1,5 +1,6 @@
 import fonts.fontAwesome;
 import win.ui;
+import console;
 /*DSG{{*/
 var winform = win.form(text="设置";right=984;bottom=589;bgcolor=16777215)
 winform.add(
@@ -41,9 +42,11 @@ cmdidCtrl.wndproc = function(hwnd,message,wParam,lParam){
 }
 
 //自适应列宽度 
+/*
 sysidCtrl.adjust = function(cx,cy){
     sysidCtrl.fillParent(2);
 }
+*/
 
 //窗口缩放后会自动触发此函数
 winform.adjust = function( cx,cy,wParam ) {
@@ -56,6 +59,44 @@ winform.adjust = function( cx,cy,wParam ) {
 };
 
 
+//当前焦点项变更时触发此事件
+cmdidCtrl.onRightClick = function(item,subItem,nmListView){
+   cmdidCtrl.editLabel(2);
+   console.log("onRightClick");
+}
+
+sysidCtrl.onnotify = function(id,code,ptr){
+  select(code) {
+  		// 0xFFFFFFFE _NM_CLICK  鼠标单击
+  		// 0xFFFFFFFD _NM_DBLCLK 鼠标双击
+  		// 0xFFFFFFFB _NM_RCLICK 当鼠标右键单击列表视图控件时产生
+        case 0xFFFFFFFE {
+            var _, cmdid = sysidCtrl.getSelection(, 1);
+            var _, cmdtxt = sysidCtrl.getSelection(, 2);
+        	console.log("_NM_CLICK", "cmdid", cmdid, "cmdtxt", cmdtxt);
+        };
+        case 0xFFFFFFFD {
+            var _, cmdid = sysidCtrl.getSelection(, 1);
+            var _, cmdtxt = sysidCtrl.getSelection(, 2);
+        	console.log("_NM_DBLCLK", "cmdid", cmdid, "cmdtxt", cmdtxt);
+        };
+        case 0xFFFFFFFB {
+            var _, cmdid = sysidCtrl.getSelection(, 1);
+            var _, cmdtxt = sysidCtrl.getSelection(, 2);
+        	console.log("_NM_RCLICK", "cmdid", cmdid, "cmdtxt", cmdtxt);
+        }
+      }
+}
+
+cmdidCtrl.onnotify = function(id,code,ptr){
+  select(code) {
+        case 0xFFFFFFFD {
+            var _, cmdid = cmdidCtrl.getSelection(, 1);
+            var _, cmdtxt = cmdidCtrl.getSelection(, 2);
+        	console.log("_NM_DBLCLK", "cmdid", cmdid, "cmdtxt", cmdtxt);
+        }
+      }
+}
 	
 function initSysidCtrl(){
 	for sysid = 0; 255; 1{
