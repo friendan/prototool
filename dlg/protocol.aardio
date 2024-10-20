@@ -2,6 +2,7 @@ import fonts.fontAwesome;
 import win.ui;
 import win.inputBox;
 import console;
+import web.msxml;
 /*DSG{{*/
 var winform = win.form(text="设置";right=984;bottom=589;bgcolor=16777215)
 winform.add(
@@ -74,12 +75,7 @@ cmdidCtrl.wndproc = function(hwnd,message,wParam,lParam){
     } 
 }
 
-//自适应列宽度 
-/*
-sysidCtrl.adjust = function(cx,cy){
-    sysidCtrl.fillParent(2);
-}
-*/
+
 
 var btnWidth = 65;
 var btnHeight = 35;
@@ -170,10 +166,15 @@ cmdidCtrl.onDoubleClick = function(item,subItem,nmListView){
 
 	
 function initSysidCtrl(){
-	for sysid = 0; 255; 1{
-		sysidCtrl.addItem({ tostring(sysid), "22222222wwwwwwwwwwww系统id"+tostring(sysid) });
+	var xmlDoc = web.msxml();
+	xmlDoc.load("/protocol/systems.xml");
+	//console.log(xmlDoc.xml);
+	for(index, systemNode in xmlDoc.eachNode("system")){
+		var sysid = tonumber(systemNode.getAttribute("id"));
+		var name = systemNode.getElementsByTagName("name")[0].text;
+		//console.log(sysid, name);
+    	sysidCtrl.addItem({ sysid, name });
 	}
-	sysidCtrl.addItem({ tostring(1111), "数据结构"});
 }
 initSysidCtrl();
 
