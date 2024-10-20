@@ -141,14 +141,18 @@ sysidCtrl.onnotify = function(id,code,ptr){
 
 ///////////////////////////////// sysidCtrl //////////////////////////////////////////
 function initSysidCtrl(){
+	sysidCtrl.clear();
 	var xmlDoc = web.msxml();
 	xmlDoc.load("/protocol/systems.xml");
 	//console.log(xmlDoc.xml);
 	for(index, systemNode in xmlDoc.eachNode("system")){
-		var sysid = tonumber(systemNode.getAttribute("id"));
-		var name = systemNode.getElementsByTagName("name")[0].text;
-		//console.log(sysid, name);
-    	sysidCtrl.addItem({ sysid, name });
+		var hide = tonumber(systemNode.getAttribute("hide"));
+		if hide == 0 {
+			var sysid = tonumber(systemNode.getAttribute("id"));
+			var name = systemNode.getElementsByTagName("name")[0].text;
+			//console.log(sysid, name);
+    		sysidCtrl.addItem({ sysid, name });
+    	}
 	}
 }
 initSysidCtrl();
@@ -187,6 +191,10 @@ sysidCtrl.onClick = function(item,subItem,nmListView){
 sysidAdd.oncommand = function(id,event){
 	var dlg = winform.loadForm("\dlg\addsysid.aardio");
 	dlg.doModal();
+	//LOG_DEBUG("refreshSysId", dlg.refreshSysId);
+	if dlg.refreshSysId {
+		initSysidCtrl();
+	}
 }
 
 sysidDel.oncommand = function(id,event){

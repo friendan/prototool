@@ -26,16 +26,7 @@ winform.btnSure.oncommand = function(id,event){
 		tipInfo.text = "系统id不能为空";
 		return; 
 	}
-	var xmlDoc = web.msxml();
-	xmlDoc.load(PROTOCOL_SYSFILE_PATH);
-	//LOG_DEBUG(xmlDoc.xml);
-	for(index, systemNode in xmlDoc.eachNode("system")){
-		var sysId2 = tonumber(systemNode.getAttribute("id"));
-		if sysId == sysId2 {
-			tipInfo.text = "系统id已经存在了!";
-			return;
-		}
-	}
+	
 	var sysName = winform.sysName.text;
 	//LOG_DEBUG("sysName", sysName, string.len(sysName));
 	if string.len(sysName) < 1 {
@@ -47,6 +38,7 @@ winform.btnSure.oncommand = function(id,event){
 			<name>sysName</name>
 		</system>
 	*/
+	/***
 	var root = xmlDoc.documentElement;
 	var systemsNode = root.selectSingleNode("/systems");
 	
@@ -60,7 +52,24 @@ winform.btnSure.oncommand = function(id,event){
 	systemsNode.appendChild(systemNode);
 	
 	xmlDoc.save(PROTOCOL_SYSFILE_PATH);
+	***/
+	
+	var xmlDoc = web.msxml();
+	xmlDoc.load(PROTOCOL_SYSFILE_PATH);
+	//LOG_DEBUG(xmlDoc.xml);
+	for(index, systemNode in xmlDoc.eachNode("system")){
+		var sysId2 = tonumber(systemNode.getAttribute("id"));
+		if sysId == sysId2 {
+			systemNode.setAttribute("hide", 0);
+			var nameNode = systemNode.selectSingleNode("name");
+			nameNode.Text = sysName;
+			break;
+		}
+	}
+	
+	xmlDoc.save(PROTOCOL_SYSFILE_PATH);
 	tipInfo.text = "新增系统成功";
+	winform.refreshSysId = true;
 	
 	/**
 	var xmlstr =/*<?xml version="1.0" encoding="utf-8"?>
