@@ -4,6 +4,7 @@ import log;
 import config;
 var gSydIdXmlDoc = false;
 var PROTOCOL_SYSFILE_PATH = ..PROTOCOL_SYSFILE_PATH;
+var nowSysId = null;
 
 function GetSysIdXmlDoc(){
 	if not gSydIdXmlDoc {
@@ -14,6 +15,13 @@ function GetSysIdXmlDoc(){
 	return gSydIdXmlDoc; 
 }
 
+function SetNowSysId(sysid){
+	nowSysId = sysid;
+}
+
+function GetNowSysId(){
+	return nowSysId;
+}
 
 
 
