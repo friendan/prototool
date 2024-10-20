@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <systems>
-    <system id="0">
-        <name>默认系统</name>
-    </system>
+	<system id="0">
+		<name>默认系统</name>
+	</system>
 	<system id="250">
-        <name>公共系统</name>
-    </system>
+		<name>公共系统</name>
+	</system>
 	<system id="251">
-        <name>活动系统</name>
-    </system>
+		<name>活动系统</name>
+	</system>
 	<system id="252">
-        <name>排行榜系统</name>
-    </system>
+		<name>排行榜系统</name>
+	</system>
 	<system id="253">
-        <name>聊天系统</name>
-    </system>
+		<name>聊天系统</name>
+	</system>
 	<system id="254">
-        <name>背包系统</name>
-    </system>
+		<name>背包系统</name>
+	</system>
 	<system id="255">
-        <name>邮件系统</name>
-    </system>
+		<name>邮件系统</name>
+	</system>
 	<system id="1111">
-        <name>数据结构</name>
-    </system>
-</systems>
+		<name>数据结构</name>
+	</system>
+	<system id="1"><name>1111</name></system></systems>

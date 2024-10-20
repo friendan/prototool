@@ -2,12 +2,14 @@
 import fsys.config;
 config  = fsys.config("/config/"); 
 //config  = fsys.config( io.appData("/软件作者/应用程序名/") ); 
+PROTOCOL_SYSFILE_PATH = "/protocol/systems.xml";
 
 //不需要序列化的配置名字前请添加下划线
 namespace config {
 	__appName = "应用程序名";
 	__website = "http://www.aardio.com/";
 }
+
 
 /**intellisense(config)
 __appName = 应用程序名

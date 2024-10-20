@@ -1,8 +1,9 @@
 import fonts.fontAwesome;
 import win.ui;
 import win.inputBox;
-import console;
+import log;
 import web.msxml;
+import config;
 /*DSG{{*/
 var winform = win.form(text="设置";right=984;bottom=589;bgcolor=16777215)
 winform.add(
@@ -184,7 +185,8 @@ sysidCtrl.onClick = function(item,subItem,nmListView){
 
 
 sysidAdd.oncommand = function(id,event){
-	
+	var dlg = winform.loadForm("\dlg\addsysid.aardio");
+	dlg.doModal();
 }
 
 sysidDel.oncommand = function(id,event){
@@ -215,7 +217,7 @@ cmdidCtrl.onClick = function(item,subItem,nmListView){
 	//console.log(filePath, xmlDoc.xml);
 	var root = xmlDoc.documentElement;
 	if not root {
-		console.log(filePath, xmlDoc.xml, "item,subItem", item,subItem);
+		LOG_DEBUG(filePath, xmlDoc.xml, "item,subItem", item,subItem);
 		return; 
 	}
 	var protocolsNode = root.selectSingleNode("/protocols");

@@ -1,0 +1,35 @@
+﻿namespace log
+var enableLog = false;
+
+if _STUDIO_INVOKED {
+	import console;
+	enableLog = true;
+}
+
+::LOG_ENABLE = function(enable){
+	enableLog = enable;
+	if enableLog {
+		import console;
+		console.open();
+	}else{
+		import console;
+		console.close();
+	}
+}
+
+::LOG_DEBUG = function(...){
+	if not enableLog {
+		return; 
+	}
+	//console.log(...);
+	console.dump(...);
+}
+
+::LOG_PAUSE = function(){
+	if enableLog {
+		console.pause(true);
+	}
+}
+
+
+

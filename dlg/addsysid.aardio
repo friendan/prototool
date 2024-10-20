@@ -1,0 +1,77 @@
+import win.ui;
+import log;
+import config;
+import web.msxml;
+
+/*DSG{{*/
+var winform = win.form(text="新增系统";right=529;bottom=261;max=false;min=false)
+winform.add(
+btnSure={cls="plus";text="确定";left=114;top=187;right=204;bottom=221;bgcolor=11580047;db=1;dr=1;font=LOGFONT(h=-16;name='FontAwesome');notify=1;tabstop=1;z=5};
+static={cls="static";text="系统id：";left=114;top=18;right=191;bottom=44;transparent=1;z=1};
+static2={cls="static";text="系统名称：";left=114;top=105;right=191;bottom=131;transparent=1;z=2};
+sysId={cls="edit";left=112;top=44;right=202;bottom=74;edge=1;num=1;z=3};
+sysName={cls="edit";left=113;top=138;right=364;bottom=173;edge=1;z=4};
+tipInfo={cls="static";text="Static";left=226;top=193;right=466;bottom=229;color=255;transparent=1;z=6}
+)
+/*}}*/
+
+var tipInfo = winform.tipInfo;
+tipInfo.text = "";
+//LOG_DEBUG("PROTOCOL_SYSFILE_PATH", PROTOCOL_SYSFILE_PATH);
+
+winform.btnSure.oncommand = function(id,event){
+	tipInfo.text = "";
+	var sysId = tonumber(winform.sysId.text);
+	if not sysId and sysId != 0{
+		tipInfo.text = "系统id不能为空";
+		return; 
+	}
+	var xmlDoc = web.msxml();
+	xmlDoc.load(PROTOCOL_SYSFILE_PATH);
+	//LOG_DEBUG(xmlDoc.xml);
+	for(index, systemNode in xmlDoc.eachNode("system")){
+		var sysId2 = tonumber(systemNode.getAttribute("id"));
+		if sysId == sysId2 {
+			tipInfo.text = "系统id已经存在了!";
+			return;
+		}
+	}
+	var sysName = winform.sysName.text;
+	//LOG_DEBUG("sysName", sysName, string.len(sysName));
+	if string.len(sysName) < 1 {
+		tipInfo.text = "系统名称不能为空";
+		return; 
+	}
+	/*
+		<system id="0">
+			<name>sysName</name>
+		</system>
+	*/
+	var root = xmlDoc.documentElement;
+	var systemsNode = root.selectSingleNode("/systems");
+	
+	var systemNode = xmlDoc.createNode("element", "system", "");
+	systemNode.setAttribute("id", sysId);
+	
+	var nameNode = xmlDoc.createNode("element", "name", "");
+	nameNode.text = sysName;
+	
+	systemNode.appendChild(nameNode);
+	systemsNode.appendChild(systemNode);
+	
+	xmlDoc.save(PROTOCOL_SYSFILE_PATH);
+	tipInfo.text = "新增系统成功";
+	
+	/**
+	var xmlstr =/*<?xml version="1.0" encoding="utf-8"?>
+		<protocols></protocols>
+	*/
+	var filePath = string.format("/protocol/%s.xml", sysId);
+  	xmlDoc = web.msxml(xmlstr);
+  	xmlDoc.save(filePath);
+  	**/
+}
+
+winform.show();
+win.loopMessage();
+return winform;
