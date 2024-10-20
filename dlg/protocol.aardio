@@ -41,6 +41,7 @@ var fieldDown = winform.fieldDown;
 var fieldUp = winform.fieldUp;
 var btnWidth = 65;
 var btnHeight = 35;
+var nowSysId = null;
 
 sysidCtrl.insertColumn("系统",35); //insertColumn(列名,列宽,位置,样式)
 sysidCtrl.insertColumn("名称", -1);
@@ -54,8 +55,9 @@ cmdidCtrl.gridLines = true;
 cmdidCtrl.fullRow = true;
 
 detailCtrl.insertColumn("#",35);
-detailCtrl.insertColumn("类型",100);
-detailCtrl.insertColumn("名称", -1);
+detailCtrl.insertColumn("类型",60);
+detailCtrl.insertColumn("名称", 150);
+detailCtrl.insertColumn("描述", -1);
 detailCtrl.gridLines = true;
 detailCtrl.fullRow = true;
 
@@ -100,13 +102,6 @@ winform.adjust = function( cx,cy,wParam ) {
 	fieldDown.setPos(fieldUp.right+5, fieldAdd.top, 80, btnHeight);
 };
 
-
-//当前焦点项变更时触发此事件
-cmdidCtrl.onRightClick = function(item,subItem,nmListView){
-   cmdidCtrl.editLabel(2);
-   //console.log("onRightClick");
-}
-
 sysidCtrl.onnotify = function(id,code,ptr){
   select(code) {
   		// 0xFFFFFFFE _NM_CLICK  鼠标单击
@@ -130,17 +125,19 @@ sysidCtrl.onnotify = function(id,code,ptr){
       }
 }
 
-/*
-cmdidCtrl.onnotify = function(id,code,ptr){
-  select(code) {
-        case 0xFFFFFFFD {
-            var _, cmdid = cmdidCtrl.getSelection(, 1);
-            var _, cmdtxt = cmdidCtrl.getSelection(, 2);
-        	console.log("_NM_DBLCLK", "cmdid", cmdid, "cmdtxt", cmdtxt);
-        }
-      }
+///////////////////////////////// sysidCtrl //////////////////////////////////////////
+function initSysidCtrl(){
+	var xmlDoc = web.msxml();
+	xmlDoc.load("/protocol/systems.xml");
+	//console.log(xmlDoc.xml);
+	for(index, systemNode in xmlDoc.eachNode("system")){
+		var sysid = tonumber(systemNode.getAttribute("id"));
+		var name = systemNode.getElementsByTagName("name")[0].text;
+		//console.log(sysid, name);
+    	sysidCtrl.addItem({ sysid, name });
+	}
 }
-*/
+initSysidCtrl();
 
 sysidCtrl.onClick = function(item,subItem,nmListView){
   	var sysid = sysidCtrl.getItemText(item, 1);
@@ -166,12 +163,60 @@ sysidCtrl.onClick = function(item,subItem,nmListView){
 		});
 	}
 	initCmdidCtrl(cmdList);
+	nowSysId = sysid;
+}
+///////////////////////////////// sysidCtrl end //////////////////////////////////////////
+
+///////////////////////////////// cmdidCtrl //////////////////////////////////////////
+cmdidCtrl.onClick = function(item,subItem,nmListView){
+	//console.log("item,subItem", item,subItem);
+	if item < 1 {
+		return;
+	}
+  	var cmdid = cmdidCtrl.getItemText(item, 1);
+  	var from = cmdidCtrl.getItemText(item, 2) == "前端" and 1 or 2;
+  	var filePath = string.format("/protocol/%s.xml", nowSysId);
+  	var xmlDoc = web.msxml();
+  	xmlDoc.load(filePath);
+	//console.log(filePath, xmlDoc.xml);
+	var root = xmlDoc.documentElement;
+	if not root {
+		console.log(filePath, xmlDoc.xml, "item,subItem", item,subItem);
+		return; 
+	}
+	var protocolsNode = root.selectSingleNode("/protocols");
+	//console.log("protocolsNode", protocolsNode, protocolsNode.xml);
+	var childNodes = protocolsNode.childNodes;
+	if childNodes.length < 1 {
+		return;
+	}
+	var cmdNode = childNodes(item-1);
+	if not cmdNode {
+		return; 
+	}
+	//console.log("cmdNode", cmdNode.xml);
+	childNodes = cmdNode.childNodes;
+	detailCtrl.clear();
+	for(index = 0; childNodes.length-1; 1){
+		var fieldNode = childNodes(index);
+		detailCtrl.addItem({
+			index + 1,
+			fieldNode.getAttribute("type"),
+			fieldNode.getAttribute("name"),
+			fieldNode.getText(),
+		});		
+	}
+}
+
+function initCmdidCtrl(cmdList){
+	cmdidCtrl.clear();
+	detailCtrl.clear();
+	for _, item in cmdList{
+		cmdidCtrl.addItem(item);
+	}
 }
 
 cmdidCtrl.onDoubleClick = function(item,subItem,nmListView){
-    /*左键双击项目触发此事件。 item 为变更为焦点的项序号，subItem 为列序号，nmListView 为 NMLISTVIEW 结构体*/
-    //console.log("onDoubleClick", "item", item, "subItem", subItem);
-     // 弹出输入框让用户修改内容
      var _, cmdtxt = cmdidCtrl.getSelection(, 2);
     var newValue = win.inputBox("请输入新值", "修改单元格", cmdtxt);
      cmdidCtrl.setItemText(tostring(newValue), item, subItem);
@@ -181,27 +226,16 @@ cmdidCtrl.onDoubleClick = function(item,subItem,nmListView){
     }
 }
 
+cmdidCtrl.onRightClick = function(item,subItem,nmListView){
+  
+}
+///////////////////////////////// cmdidCtrl end //////////////////////////////////////////
+
 
 	
-function initSysidCtrl(){
-	var xmlDoc = web.msxml();
-	xmlDoc.load("/protocol/systems.xml");
-	//console.log(xmlDoc.xml);
-	for(index, systemNode in xmlDoc.eachNode("system")){
-		var sysid = tonumber(systemNode.getAttribute("id"));
-		var name = systemNode.getElementsByTagName("name")[0].text;
-		//console.log(sysid, name);
-    	sysidCtrl.addItem({ sysid, name });
-	}
-}
-initSysidCtrl();
 
-function initCmdidCtrl(cmdList){
-	cmdidCtrl.clear();
-	for _, item in cmdList{
-		cmdidCtrl.addItem(item);
-	}
-}
+
+
 
 
 winform.show();
