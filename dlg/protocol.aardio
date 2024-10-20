@@ -202,7 +202,18 @@ sysidDel.oncommand = function(id,event){
 }
 
 sysidModify.oncommand = function(id,event){
-	
+	var row = sysidCtrl.getSelection();
+	if row < 1 {
+		return; 
+	}
+	var dlg = winform.loadForm("\dlg\modifysysid.aardio",
+	sysidCtrl.getItemText(row, 1),
+	sysidCtrl.getItemText(row, 2));
+	dlg.doModal();
+	//LOG_DEBUG("refreshSysId", dlg.refreshSysId);
+	if dlg.refreshSysId {
+		initSysidCtrl();
+	}
 }
 
 sysidSave.oncommand = function(id,event){
