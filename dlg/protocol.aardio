@@ -198,7 +198,23 @@ sysidAdd.oncommand = function(id,event){
 }
 
 sysidDel.oncommand = function(id,event){
-	
+	var row = sysidCtrl.getSelection();
+	if row < 1 {
+		return; 
+	}
+	var sysId = tonumber(sysidCtrl.getItemText(row, 1));
+	var ok = winform.msgboxTest("你确定要删除吗？sysId="+sysId,"提示");
+    if(ok){
+       var xmlDoc = systool.GetSysIdXmlDoc();
+		for(index, systemNode in xmlDoc.eachNode("system")){
+			var sysId2 = tonumber(systemNode.getAttribute("id"));
+			if sysId == sysId2 {
+				systemNode.setAttribute("hide", 1);
+				initSysidCtrl();
+				break;
+			}
+		}
+    }
 }
 
 sysidModify.oncommand = function(id,event){

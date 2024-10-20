@@ -1,5 +1,6 @@
 import fonts.fontAwesome;
 import win.ui;
+import config;
 /*DSG{{*/
 mainForm = win.form(text="prototool";right=1040;bottom=642;bgcolor=16777215;border="none")
 mainForm.add(
