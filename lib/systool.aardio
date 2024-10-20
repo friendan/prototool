@@ -1,0 +1,27 @@
+﻿namespace systool;
+import web.msxml;
+import log;
+import config;
+var gSydIdXmlDoc = false;
+var PROTOCOL_SYSFILE_PATH = ..PROTOCOL_SYSFILE_PATH;
+
+function GetSysIdXmlDoc(){
+	if not gSydIdXmlDoc {
+		gSydIdXmlDoc = web.msxml();
+		gSydIdXmlDoc.load(PROTOCOL_SYSFILE_PATH);
+		//LOG_DEBUG("PROTOCOL_SYSFILE_PATH", PROTOCOL_SYSFILE_PATH);
+	}
+	return gSydIdXmlDoc; 
+}
+
+
+
+
+
+
+
+
+
+
+
+
