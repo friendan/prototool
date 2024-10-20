@@ -1,27 +1,774 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <systems>
-	<system id="0">
+	<system id="0" hide="0">
 		<name>默认系统</name>
 	</system>
-	<system id="250">
+	<system id="1" hide="1">
+		<name></name>
+	</system>
+	<system id="2" hide="1">
+		<name></name>
+	</system>
+	<system id="3" hide="1">
+		<name></name>
+	</system>
+	<system id="4" hide="1">
+		<name></name>
+	</system>
+	<system id="5" hide="1">
+		<name></name>
+	</system>
+	<system id="6" hide="1">
+		<name></name>
+	</system>
+	<system id="7" hide="1">
+		<name></name>
+	</system>
+	<system id="8" hide="1">
+		<name></name>
+	</system>
+	<system id="9" hide="1">
+		<name></name>
+	</system>
+	<system id="10" hide="1">
+		<name></name>
+	</system>
+	<system id="11" hide="1">
+		<name></name>
+	</system>
+	<system id="12" hide="1">
+		<name></name>
+	</system>
+	<system id="13" hide="1">
+		<name></name>
+	</system>
+	<system id="14" hide="1">
+		<name></name>
+	</system>
+	<system id="15" hide="1">
+		<name></name>
+	</system>
+	<system id="16" hide="1">
+		<name></name>
+	</system>
+	<system id="17" hide="1">
+		<name></name>
+	</system>
+	<system id="18" hide="1">
+		<name></name>
+	</system>
+	<system id="19" hide="1">
+		<name></name>
+	</system>
+	<system id="20" hide="1">
+		<name></name>
+	</system>
+	<system id="21" hide="1">
+		<name></name>
+	</system>
+	<system id="22" hide="1">
+		<name></name>
+	</system>
+	<system id="23" hide="1">
+		<name></name>
+	</system>
+	<system id="24" hide="1">
+		<name></name>
+	</system>
+	<system id="25" hide="1">
+		<name></name>
+	</system>
+	<system id="26" hide="1">
+		<name></name>
+	</system>
+	<system id="27" hide="1">
+		<name></name>
+	</system>
+	<system id="28" hide="1">
+		<name></name>
+	</system>
+	<system id="29" hide="1">
+		<name></name>
+	</system>
+	<system id="30" hide="1">
+		<name></name>
+	</system>
+	<system id="31" hide="1">
+		<name></name>
+	</system>
+	<system id="32" hide="1">
+		<name></name>
+	</system>
+	<system id="33" hide="1">
+		<name></name>
+	</system>
+	<system id="34" hide="1">
+		<name></name>
+	</system>
+	<system id="35" hide="1">
+		<name></name>
+	</system>
+	<system id="36" hide="1">
+		<name></name>
+	</system>
+	<system id="37" hide="1">
+		<name></name>
+	</system>
+	<system id="38" hide="1">
+		<name></name>
+	</system>
+	<system id="39" hide="1">
+		<name></name>
+	</system>
+	<system id="40" hide="1">
+		<name></name>
+	</system>
+	<system id="41" hide="1">
+		<name></name>
+	</system>
+	<system id="42" hide="1">
+		<name></name>
+	</system>
+	<system id="43" hide="1">
+		<name></name>
+	</system>
+	<system id="44" hide="1">
+		<name></name>
+	</system>
+	<system id="45" hide="1">
+		<name></name>
+	</system>
+	<system id="46" hide="1">
+		<name></name>
+	</system>
+	<system id="47" hide="1">
+		<name></name>
+	</system>
+	<system id="48" hide="1">
+		<name></name>
+	</system>
+	<system id="49" hide="1">
+		<name></name>
+	</system>
+	<system id="50" hide="1">
+		<name></name>
+	</system>
+	<system id="51" hide="1">
+		<name></name>
+	</system>
+	<system id="52" hide="1">
+		<name></name>
+	</system>
+	<system id="53" hide="1">
+		<name></name>
+	</system>
+	<system id="54" hide="1">
+		<name></name>
+	</system>
+	<system id="55" hide="1">
+		<name></name>
+	</system>
+	<system id="56" hide="1">
+		<name></name>
+	</system>
+	<system id="57" hide="1">
+		<name></name>
+	</system>
+	<system id="58" hide="1">
+		<name></name>
+	</system>
+	<system id="59" hide="1">
+		<name></name>
+	</system>
+	<system id="60" hide="1">
+		<name></name>
+	</system>
+	<system id="61" hide="1">
+		<name></name>
+	</system>
+	<system id="62" hide="1">
+		<name></name>
+	</system>
+	<system id="63" hide="1">
+		<name></name>
+	</system>
+	<system id="64" hide="1">
+		<name></name>
+	</system>
+	<system id="65" hide="1">
+		<name></name>
+	</system>
+	<system id="66" hide="1">
+		<name></name>
+	</system>
+	<system id="67" hide="1">
+		<name></name>
+	</system>
+	<system id="68" hide="1">
+		<name></name>
+	</system>
+	<system id="69" hide="1">
+		<name></name>
+	</system>
+	<system id="70" hide="1">
+		<name></name>
+	</system>
+	<system id="71" hide="1">
+		<name></name>
+	</system>
+	<system id="72" hide="1">
+		<name></name>
+	</system>
+	<system id="73" hide="1">
+		<name></name>
+	</system>
+	<system id="74" hide="1">
+		<name></name>
+	</system>
+	<system id="75" hide="1">
+		<name></name>
+	</system>
+	<system id="76" hide="1">
+		<name></name>
+	</system>
+	<system id="77" hide="1">
+		<name></name>
+	</system>
+	<system id="78" hide="1">
+		<name></name>
+	</system>
+	<system id="79" hide="1">
+		<name></name>
+	</system>
+	<system id="80" hide="1">
+		<name></name>
+	</system>
+	<system id="81" hide="1">
+		<name></name>
+	</system>
+	<system id="82" hide="1">
+		<name></name>
+	</system>
+	<system id="83" hide="1">
+		<name></name>
+	</system>
+	<system id="84" hide="1">
+		<name></name>
+	</system>
+	<system id="85" hide="1">
+		<name></name>
+	</system>
+	<system id="86" hide="1">
+		<name></name>
+	</system>
+	<system id="87" hide="1">
+		<name></name>
+	</system>
+	<system id="88" hide="1">
+		<name></name>
+	</system>
+	<system id="89" hide="1">
+		<name></name>
+	</system>
+	<system id="90" hide="1">
+		<name></name>
+	</system>
+	<system id="91" hide="1">
+		<name></name>
+	</system>
+	<system id="92" hide="1">
+		<name></name>
+	</system>
+	<system id="93" hide="1">
+		<name></name>
+	</system>
+	<system id="94" hide="1">
+		<name></name>
+	</system>
+	<system id="95" hide="1">
+		<name></name>
+	</system>
+	<system id="96" hide="1">
+		<name></name>
+	</system>
+	<system id="97" hide="1">
+		<name></name>
+	</system>
+	<system id="98" hide="1">
+		<name></name>
+	</system>
+	<system id="99" hide="1">
+		<name></name>
+	</system>
+	<system id="100" hide="1">
+		<name></name>
+	</system>
+	<system id="101" hide="1">
+		<name></name>
+	</system>
+	<system id="102" hide="1">
+		<name></name>
+	</system>
+	<system id="103" hide="1">
+		<name></name>
+	</system>
+	<system id="104" hide="1">
+		<name></name>
+	</system>
+	<system id="105" hide="1">
+		<name></name>
+	</system>
+	<system id="106" hide="1">
+		<name></name>
+	</system>
+	<system id="107" hide="1">
+		<name></name>
+	</system>
+	<system id="108" hide="1">
+		<name></name>
+	</system>
+	<system id="109" hide="1">
+		<name></name>
+	</system>
+	<system id="110" hide="1">
+		<name></name>
+	</system>
+	<system id="111" hide="1">
+		<name></name>
+	</system>
+	<system id="112" hide="1">
+		<name></name>
+	</system>
+	<system id="113" hide="1">
+		<name></name>
+	</system>
+	<system id="114" hide="1">
+		<name></name>
+	</system>
+	<system id="115" hide="1">
+		<name></name>
+	</system>
+	<system id="116" hide="1">
+		<name></name>
+	</system>
+	<system id="117" hide="1">
+		<name></name>
+	</system>
+	<system id="118" hide="1">
+		<name></name>
+	</system>
+	<system id="119" hide="1">
+		<name></name>
+	</system>
+	<system id="120" hide="1">
+		<name></name>
+	</system>
+	<system id="121" hide="1">
+		<name></name>
+	</system>
+	<system id="122" hide="1">
+		<name></name>
+	</system>
+	<system id="123" hide="1">
+		<name></name>
+	</system>
+	<system id="124" hide="1">
+		<name></name>
+	</system>
+	<system id="125" hide="1">
+		<name></name>
+	</system>
+	<system id="126" hide="1">
+		<name></name>
+	</system>
+	<system id="127" hide="1">
+		<name></name>
+	</system>
+	<system id="128" hide="1">
+		<name></name>
+	</system>
+	<system id="129" hide="1">
+		<name></name>
+	</system>
+	<system id="130" hide="1">
+		<name></name>
+	</system>
+	<system id="131" hide="1">
+		<name></name>
+	</system>
+	<system id="132" hide="1">
+		<name></name>
+	</system>
+	<system id="133" hide="1">
+		<name></name>
+	</system>
+	<system id="134" hide="1">
+		<name></name>
+	</system>
+	<system id="135" hide="1">
+		<name></name>
+	</system>
+	<system id="136" hide="1">
+		<name></name>
+	</system>
+	<system id="137" hide="1">
+		<name></name>
+	</system>
+	<system id="138" hide="1">
+		<name></name>
+	</system>
+	<system id="139" hide="1">
+		<name></name>
+	</system>
+	<system id="140" hide="1">
+		<name></name>
+	</system>
+	<system id="141" hide="1">
+		<name></name>
+	</system>
+	<system id="142" hide="1">
+		<name></name>
+	</system>
+	<system id="143" hide="1">
+		<name></name>
+	</system>
+	<system id="144" hide="1">
+		<name></name>
+	</system>
+	<system id="145" hide="1">
+		<name></name>
+	</system>
+	<system id="146" hide="1">
+		<name></name>
+	</system>
+	<system id="147" hide="1">
+		<name></name>
+	</system>
+	<system id="148" hide="1">
+		<name></name>
+	</system>
+	<system id="149" hide="1">
+		<name></name>
+	</system>
+	<system id="150" hide="1">
+		<name></name>
+	</system>
+	<system id="151" hide="1">
+		<name></name>
+	</system>
+	<system id="152" hide="1">
+		<name></name>
+	</system>
+	<system id="153" hide="1">
+		<name></name>
+	</system>
+	<system id="154" hide="1">
+		<name></name>
+	</system>
+	<system id="155" hide="1">
+		<name></name>
+	</system>
+	<system id="156" hide="1">
+		<name></name>
+	</system>
+	<system id="157" hide="1">
+		<name></name>
+	</system>
+	<system id="158" hide="1">
+		<name></name>
+	</system>
+	<system id="159" hide="1">
+		<name></name>
+	</system>
+	<system id="160" hide="1">
+		<name></name>
+	</system>
+	<system id="161" hide="1">
+		<name></name>
+	</system>
+	<system id="162" hide="1">
+		<name></name>
+	</system>
+	<system id="163" hide="1">
+		<name></name>
+	</system>
+	<system id="164" hide="1">
+		<name></name>
+	</system>
+	<system id="165" hide="1">
+		<name></name>
+	</system>
+	<system id="166" hide="1">
+		<name></name>
+	</system>
+	<system id="167" hide="1">
+		<name></name>
+	</system>
+	<system id="168" hide="1">
+		<name></name>
+	</system>
+	<system id="169" hide="1">
+		<name></name>
+	</system>
+	<system id="170" hide="1">
+		<name></name>
+	</system>
+	<system id="171" hide="1">
+		<name></name>
+	</system>
+	<system id="172" hide="1">
+		<name></name>
+	</system>
+	<system id="173" hide="1">
+		<name></name>
+	</system>
+	<system id="174" hide="1">
+		<name></name>
+	</system>
+	<system id="175" hide="1">
+		<name></name>
+	</system>
+	<system id="176" hide="1">
+		<name></name>
+	</system>
+	<system id="177" hide="1">
+		<name></name>
+	</system>
+	<system id="178" hide="1">
+		<name></name>
+	</system>
+	<system id="179" hide="1">
+		<name></name>
+	</system>
+	<system id="180" hide="1">
+		<name></name>
+	</system>
+	<system id="181" hide="1">
+		<name></name>
+	</system>
+	<system id="182" hide="1">
+		<name></name>
+	</system>
+	<system id="183" hide="1">
+		<name></name>
+	</system>
+	<system id="184" hide="1">
+		<name></name>
+	</system>
+	<system id="185" hide="1">
+		<name></name>
+	</system>
+	<system id="186" hide="1">
+		<name></name>
+	</system>
+	<system id="187" hide="1">
+		<name></name>
+	</system>
+	<system id="188" hide="1">
+		<name></name>
+	</system>
+	<system id="189" hide="1">
+		<name></name>
+	</system>
+	<system id="190" hide="1">
+		<name></name>
+	</system>
+	<system id="191" hide="1">
+		<name></name>
+	</system>
+	<system id="192" hide="1">
+		<name></name>
+	</system>
+	<system id="193" hide="1">
+		<name></name>
+	</system>
+	<system id="194" hide="1">
+		<name></name>
+	</system>
+	<system id="195" hide="1">
+		<name></name>
+	</system>
+	<system id="196" hide="1">
+		<name></name>
+	</system>
+	<system id="197" hide="1">
+		<name></name>
+	</system>
+	<system id="198" hide="1">
+		<name></name>
+	</system>
+	<system id="199" hide="1">
+		<name></name>
+	</system>
+	<system id="200" hide="1">
+		<name></name>
+	</system>
+	<system id="201" hide="1">
+		<name></name>
+	</system>
+	<system id="202" hide="1">
+		<name></name>
+	</system>
+	<system id="203" hide="1">
+		<name></name>
+	</system>
+	<system id="204" hide="1">
+		<name></name>
+	</system>
+	<system id="205" hide="1">
+		<name></name>
+	</system>
+	<system id="206" hide="1">
+		<name></name>
+	</system>
+	<system id="207" hide="1">
+		<name></name>
+	</system>
+	<system id="208" hide="1">
+		<name></name>
+	</system>
+	<system id="209" hide="1">
+		<name></name>
+	</system>
+	<system id="210" hide="1">
+		<name></name>
+	</system>
+	<system id="211" hide="1">
+		<name></name>
+	</system>
+	<system id="212" hide="1">
+		<name></name>
+	</system>
+	<system id="213" hide="1">
+		<name></name>
+	</system>
+	<system id="214" hide="1">
+		<name></name>
+	</system>
+	<system id="215" hide="1">
+		<name></name>
+	</system>
+	<system id="216" hide="1">
+		<name></name>
+	</system>
+	<system id="217" hide="1">
+		<name></name>
+	</system>
+	<system id="218" hide="1">
+		<name></name>
+	</system>
+	<system id="219" hide="1">
+		<name></name>
+	</system>
+	<system id="220" hide="1">
+		<name></name>
+	</system>
+	<system id="221" hide="1">
+		<name></name>
+	</system>
+	<system id="222" hide="1">
+		<name></name>
+	</system>
+	<system id="223" hide="1">
+		<name></name>
+	</system>
+	<system id="224" hide="1">
+		<name></name>
+	</system>
+	<system id="225" hide="1">
+		<name></name>
+	</system>
+	<system id="226" hide="1">
+		<name></name>
+	</system>
+	<system id="227" hide="1">
+		<name></name>
+	</system>
+	<system id="228" hide="1">
+		<name></name>
+	</system>
+	<system id="229" hide="1">
+		<name></name>
+	</system>
+	<system id="230" hide="1">
+		<name></name>
+	</system>
+	<system id="231" hide="1">
+		<name></name>
+	</system>
+	<system id="232" hide="1">
+		<name></name>
+	</system>
+	<system id="233" hide="1">
+		<name></name>
+	</system>
+	<system id="234" hide="1">
+		<name></name>
+	</system>
+	<system id="235" hide="1">
+		<name></name>
+	</system>
+	<system id="236" hide="1">
+		<name></name>
+	</system>
+	<system id="237" hide="1">
+		<name></name>
+	</system>
+	<system id="238" hide="1">
+		<name></name>
+	</system>
+	<system id="239" hide="1">
+		<name></name>
+	</system>
+	<system id="240" hide="1">
+		<name></name>
+	</system>
+	<system id="241" hide="1">
+		<name></name>
+	</system>
+	<system id="242" hide="1">
+		<name></name>
+	</system>
+	<system id="243" hide="1">
+		<name></name>
+	</system>
+	<system id="244" hide="1">
+		<name></name>
+	</system>
+	<system id="245" hide="1">
+		<name></name>
+	</system>
+	<system id="246" hide="1">
+		<name></name>
+	</system>
+	<system id="247" hide="1">
+		<name></name>
+	</system>
+	<system id="248" hide="1">
+		<name></name>
+	</system>
+	<system id="249" hide="1">
+		<name></name>
+	</system>
+	<system id="250" hide="0">
 		<name>公共系统</name>
 	</system>
-	<system id="251">
+	<system id="251" hide="0">
 		<name>活动系统</name>
 	</system>
-	<system id="252">
+	<system id="252" hide="0">
 		<name>排行榜系统</name>
 	</system>
-	<system id="253">
+	<system id="253" hide="0">
 		<name>聊天系统</name>
 	</system>
-	<system id="254">
+	<system id="254" hide="0">
 		<name>背包系统</name>
 	</system>
-	<system id="255">
+	<system id="255" hide="0">
 		<name>邮件系统</name>
 	</system>
-	<system id="1111">
+	<system id="1111" hide="0">
 		<name>数据结构</name>
 	</system>
-	<system id="1"><name>1111</name></system></systems>
+</systems>
