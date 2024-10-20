@@ -62,8 +62,21 @@ detailCtrl.gridLines = true;
 detailCtrl.fullRow = true;
 
 //启用双缓冲, 可用于实现虚表时避免拖动时闪烁
-sysidCtrl.enableDoubleBuffering()
-cmdidCtrl.enableDoubleBuffering()
+sysidCtrl.enableDoubleBuffering();
+cmdidCtrl.enableDoubleBuffering();
+
+/*
+var btnBackground = { 
+	hover = "/res/images/btn-hover.png";
+	focus = "/res/images/btn-focus.jpg";
+	active = "/res/images/btn-active.png";
+	disabled = "/res/images/btn-disabled.png"; 
+};
+sysidModify.skin(background = btnBackground,);
+sysidSave.skin(background = btnBackground,);
+sysidAdd.skin(background = btnBackground,);
+sysidDel.skin(background = btnBackground,);
+*/
 
 //当鼠标指针移到控件上,切换鼠标为手形
 import win.cur;
@@ -140,6 +153,9 @@ function initSysidCtrl(){
 initSysidCtrl();
 
 sysidCtrl.onClick = function(item,subItem,nmListView){
+	if item < 1 {
+		return; 
+	}
   	var sysid = sysidCtrl.getItemText(item, 1);
   	var filePath = string.format("/protocol/%s.xml", sysid);
   	var xmlDoc = web.msxml();
@@ -165,6 +181,24 @@ sysidCtrl.onClick = function(item,subItem,nmListView){
 	initCmdidCtrl(cmdList);
 	nowSysId = sysid;
 }
+
+
+sysidAdd.oncommand = function(id,event){
+	
+}
+
+sysidDel.oncommand = function(id,event){
+	
+}
+
+sysidModify.oncommand = function(id,event){
+	
+}
+
+sysidSave.oncommand = function(id,event){
+	
+}
+
 ///////////////////////////////// sysidCtrl end //////////////////////////////////////////
 
 ///////////////////////////////// cmdidCtrl //////////////////////////////////////////
@@ -230,9 +264,6 @@ cmdidCtrl.onRightClick = function(item,subItem,nmListView){
   
 }
 ///////////////////////////////// cmdidCtrl end //////////////////////////////////////////
-
-
-	
 
 
 
