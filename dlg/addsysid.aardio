@@ -2,6 +2,7 @@ import win.ui;
 import log;
 import config;
 import web.msxml;
+import systool;
 
 /*DSG{{*/
 var winform = win.form(text="新增系统";right=529;bottom=261;max=false;min=false)
@@ -54,8 +55,7 @@ winform.btnSure.oncommand = function(id,event){
 	xmlDoc.save(PROTOCOL_SYSFILE_PATH);
 	***/
 	
-	var xmlDoc = web.msxml();
-	xmlDoc.load(PROTOCOL_SYSFILE_PATH);
+	var xmlDoc = systool.GetSysIdXmlDoc();
 	//LOG_DEBUG(xmlDoc.xml);
 	for(index, systemNode in xmlDoc.eachNode("system")){
 		var sysId2 = tonumber(systemNode.getAttribute("id"));
@@ -67,7 +67,6 @@ winform.btnSure.oncommand = function(id,event){
 		}
 	}
 	
-	xmlDoc.save(PROTOCOL_SYSFILE_PATH);
 	tipInfo.text = "新增系统成功";
 	winform.refreshSysId = true;
 	

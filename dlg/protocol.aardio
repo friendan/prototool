@@ -2,6 +2,7 @@ import fonts.fontAwesome;
 import win.ui;
 import win.inputBox;
 import log;
+import systool;
 import web.msxml;
 import config;
 /*DSG{{*/
@@ -142,8 +143,7 @@ sysidCtrl.onnotify = function(id,code,ptr){
 ///////////////////////////////// sysidCtrl //////////////////////////////////////////
 function initSysidCtrl(){
 	sysidCtrl.clear();
-	var xmlDoc = web.msxml();
-	xmlDoc.load("/protocol/systems.xml");
+	var xmlDoc = systool.GetSysIdXmlDoc();
 	//console.log(xmlDoc.xml);
 	for(index, systemNode in xmlDoc.eachNode("system")){
 		var hide = tonumber(systemNode.getAttribute("hide"));
@@ -206,9 +206,9 @@ sysidModify.oncommand = function(id,event){
 }
 
 sysidSave.oncommand = function(id,event){
-	
+	var xmlDoc = systool.GetSysIdXmlDoc();
+	xmlDoc.save(PROTOCOL_SYSFILE_PATH);
 }
-
 ///////////////////////////////// sysidCtrl end //////////////////////////////////////////
 
 ///////////////////////////////// cmdidCtrl //////////////////////////////////////////
