@@ -3,7 +3,6 @@ import log;
 import config;
 import web.msxml;
 import systool;
-
 /*DSG{{*/
 var winform = win.form(text="新增系统";right=529;bottom=261;max=false;min=false)
 winform.add(
@@ -25,6 +24,10 @@ winform.btnSure.oncommand = function(id,event){
 	var sysId = tonumber(winform.sysId.text);
 	if not sysId and sysId != 0{
 		tipInfo.text = "系统id不能为空";
+		return; 
+	}
+	if sysId < 0 or sysId > 255{
+		tipInfo.text = "系统id范围是0到255";
 		return; 
 	}
 	
