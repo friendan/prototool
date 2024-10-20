@@ -39,6 +39,8 @@ var fieldAdd = winform.fieldAdd;
 var fieldDel = winform.fieldDel;
 var fieldDown = winform.fieldDown;
 var fieldUp = winform.fieldUp;
+var btnWidth = 65;
+var btnHeight = 35;
 
 sysidCtrl.insertColumn("系统",35); //insertColumn(列名,列宽,位置,样式)
 sysidCtrl.insertColumn("名称", -1);
@@ -74,11 +76,6 @@ cmdidCtrl.wndproc = function(hwnd,message,wParam,lParam){
         win.cur.setCur(hand);
     } 
 }
-
-
-
-var btnWidth = 65;
-var btnHeight = 35;
 
 //窗口缩放后会自动触发此函数
 winform.adjust = function( cx,cy,wParam ) {
@@ -145,9 +142,28 @@ cmdidCtrl.onnotify = function(id,code,ptr){
 }
 */
 
-cmdidCtrl.onClick = function(item,subItem,nmListView){
-  /*左键单击项目触发此事件。item 为变更为焦点的项序号，subItem 为列序号，nmListView 为 NMLISTVIEW 结构体*/
-  //console.log("onClick", "item", item, "subItem", subItem);
+sysidCtrl.onClick = function(item,subItem,nmListView){
+  	var sysid = sysidCtrl.getItemText(item, 1);
+  	var filePath = string.format("/protocol/%s.xml", sysid);
+  	var xmlDoc = web.msxml();
+  	xmlDoc.load(filePath);
+	//console.log(filePath, xmlDoc.xml);
+	var root = xmlDoc.documentElement;
+	if not root {
+		console.log(filePath, xmlDoc.xml, "item,subItem", item,subItem);
+		return; 
+	}
+	var protocolsNode = root.selectSingleNode("/protocols");
+	//console.log("protocolsNode", protocolsNode, protocolsNode.xml);
+	var childNodes = protocolsNode.childNodes;
+	for(index = 0; childNodes.length-1; 1){
+		var cmdNode = childNodes(index);
+		var cmd = tonumber(cmdNode.getAttribute("id"));
+		var from = tonumber(cmdNode.getAttribute("from"));
+		var name = tonumber(cmdNode.getAttribute("name"));
+		console.log("cmd", cmd, "from", from, "name", name);
+	}
+	
 }
 
 cmdidCtrl.onDoubleClick = function(item,subItem,nmListView){
