@@ -4,4 +4,8 @@
 		<field type="int" name="serverTime">服务器时间</field>
 		<field type="string" name="serverName">服务器名字</field>
     </cmd>
+	<cmd id="0" from="2" name="请求服务器时间">
+		<field type="int" name="serverTime">服务器时间</field>
+		<field type="string" name="serverName">服务器名字</field>
+    </cmd>
 </protocols>

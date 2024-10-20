@@ -156,14 +156,16 @@ sysidCtrl.onClick = function(item,subItem,nmListView){
 	var protocolsNode = root.selectSingleNode("/protocols");
 	//console.log("protocolsNode", protocolsNode, protocolsNode.xml);
 	var childNodes = protocolsNode.childNodes;
+	var cmdList = {};
 	for(index = 0; childNodes.length-1; 1){
 		var cmdNode = childNodes(index);
-		var cmd = tonumber(cmdNode.getAttribute("id"));
-		var from = tonumber(cmdNode.getAttribute("from"));
-		var name = tonumber(cmdNode.getAttribute("name"));
-		console.log("cmd", cmd, "from", from, "name", name);
+		table.insert(cmdList, {
+			tonumber(cmdNode.getAttribute("id")), 
+			tonumber(cmdNode.getAttribute("from")) == 1 and "前端" or "后端", 
+			cmdNode.getAttribute("name"),
+		});
 	}
-	
+	initCmdidCtrl(cmdList);
 }
 
 cmdidCtrl.onDoubleClick = function(item,subItem,nmListView){
@@ -194,13 +196,12 @@ function initSysidCtrl(){
 }
 initSysidCtrl();
 
-function initCmdidCtrl(){
-	for cmdid = 0; 255; 1{
-		cmdidCtrl.addItem({ tostring(cmdid), "前端", "22222222wwwwwwwwwwww命令id"+tostring(cmdid) });
+function initCmdidCtrl(cmdList){
+	cmdidCtrl.clear();
+	for _, item in cmdList{
+		cmdidCtrl.addItem(item);
 	}
 }
-initCmdidCtrl();
-
 
 
 winform.show();
