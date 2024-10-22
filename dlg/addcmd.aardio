@@ -1,0 +1,67 @@
+import win.ui;
+import web.msxml;
+import systool;
+/*DSG{{*/
+var winform = win.form(text="新增系统命令";right=682;bottom=363;max=false;min=false)
+winform.add(
+btnSure={cls="plus";text="确定";left=123;top=167;right=213;bottom=201;bgcolor=11580047;db=1;dr=1;font=LOGFONT(h=-16;name='FontAwesome');notify=1;tabstop=1;z=6};
+cmdId={cls="edit";left=123;top=43;right=213;bottom=73;edge=1;num=1;z=4};
+cmdName={cls="edit";left=123;top=101;right=603;bottom=136;edge=1;z=5};
+groupbox={cls="groupbox";text="来源：";left=241;top=36;right=439;bottom=90;edge=1;z=1};
+radioClient={cls="radiobutton";text="前端";left=289;top=56;right=348;bottom=85;z=8};
+radioServer={cls="radiobutton";text="后端";left=358;top=56;right=417;bottom=85;z=9};
+static={cls="static";text="命令id：";left=56;top=49;right=113;bottom=73;transparent=1;z=2};
+static2={cls="static";text="命令名称：";left=44;top=100;right=113;bottom=126;transparent=1;z=3};
+tipInfo={cls="static";text="Static";left=238;top=169;right=478;bottom=205;color=255;transparent=1;z=7}
+)
+/*}}*/
+
+winform.radioClient.checked = true;
+var tipInfo = winform.tipInfo;
+tipInfo.text = "";
+
+winform.btnSure.oncommand = function(id,event){
+	tipInfo.text = "";
+	var cmdId = tonumber(winform.cmdId.text);
+	if not cmdId and cmdId != 0{
+		tipInfo.text = "命令id不能为空";
+		return; 
+	}
+	if cmdId < 0 or cmdId > 255{
+		tipInfo.text = "命令id范围是0到255";
+		return; 
+	}
+	
+	var cmdName = winform.cmdName.text;
+	if string.len(cmdName) < 1 {
+		tipInfo.text = "命令名称不能为空";
+		return; 
+	}
+	
+	var from = 1;
+	var fromText = winform.radioClient.text;
+	if winform.radioServer.checked {
+		from = 2;
+		fromText = winform.radioServer.text;
+	}
+	
+	var sysId = systool.GetNowSysId();
+	var filePath = string.format("/protocol/%s.xml", sysId);
+	var xmlDoc = web.msxml();
+	xmlDoc.load(filePath);
+	var root = xmlDoc.documentElement;
+	for(index, cmdNode in xmlDoc.eachNode("protocols/cmd")){
+		var cmdId2 = tonumber(systemNode.getAttribute("id"));
+		var from2 = tonumber(systemNode.getAttribute("from"));
+		if cmdId == cmdId and from == from2 {
+			tipInfo.text = "该命令已经存在了！来源：" + fromText;
+			return; 
+		}
+	}
+	
+	
+}
+
+winform.show();
+win.loopMessage();
+return winform;

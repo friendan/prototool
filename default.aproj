@@ -9,5 +9,7 @@
 		<file name="help.aardio" path="dlg\help.aardio" comment="dlg\help.aardio"/>
 		<file name="addsysid.aardio" path="dlg\addsysid.aardio" comment="dlg\addsysid.aardio"/>
 		<file name="modifysysid.aardio" path="dlg\modifysysid.aardio" comment="dlg\modifysysid.aardio"/>
+		<file name="addcmd.aardio" path="dlg\addcmd.aardio" comment="dlg\addcmd.aardio"/>
+		<file name="modifycmd.aardio" path="dlg\modifycmd.aardio" comment="dlg\modifycmd.aardio"/>
 	</folder>
 </project>

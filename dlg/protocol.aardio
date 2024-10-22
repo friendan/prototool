@@ -11,13 +11,12 @@ winform.add(
 cmdAdd={cls="plus";text='\uF0C7 加';left=284;top=536;right=341;bottom=569;bgcolor=11580047;db=1;dr=1;font=LOGFONT(h=-16;name='FontAwesome');notify=1;tabstop=1;z=8};
 cmdDel={cls="plus";text='\uF0C7 删';left=353;top=536;right=410;bottom=569;bgcolor=11580047;db=1;dr=1;font=LOGFONT(h=-16;name='FontAwesome');notify=1;tabstop=1;z=9};
 cmdModify={cls="plus";text='\uF0C7 改';left=424;top=537;right=481;bottom=570;bgcolor=11580047;db=1;dr=1;font=LOGFONT(h=-16;name='FontAwesome');notify=1;tabstop=1;z=10};
-cmdSave={cls="plus";text='\uF0C7 存';left=493;top=538;right=550;bottom=571;bgcolor=11580047;db=1;dr=1;font=LOGFONT(h=-16;name='FontAwesome');notify=1;tabstop=1;z=11};
 cmdidCtrl={cls="listview";left=281;top=4;right=598;bottom=533;bgcolor=13816530;db=1;dl=1;dt=1;edge=1;fullRow=1;gridLines=1;hscroll=1;msel=false;vscroll=1;z=2};
 detailCtrl={cls="listview";left=613;top=4;right=930;bottom=533;bgcolor=13816530;db=1;dl=1;dt=1;edge=1;fullRow=1;gridLines=1;hscroll=1;msel=false;vscroll=1;z=7};
-fieldAdd={cls="plus";text="加";left=615;top=537;right=672;bottom=570;bgcolor=11580047;db=1;dr=1;font=LOGFONT(h=-16;name='FontAwesome');notify=1;tabstop=1;z=12};
-fieldDel={cls="plus";text='\uF0C7 删';left=683;top=536;right=740;bottom=569;bgcolor=11580047;db=1;dr=1;font=LOGFONT(h=-16;name='FontAwesome');notify=1;tabstop=1;z=13};
-fieldDown={cls="plus";text="下移";left=825;top=538;right=882;bottom=571;bgcolor=11580047;db=1;dr=1;font=LOGFONT(h=-16;name='FontAwesome');notify=1;tabstop=1;z=15};
-fieldUp={cls="plus";text="上移";left=756;top=536;right=813;bottom=569;bgcolor=11580047;db=1;dr=1;font=LOGFONT(h=-16;name='FontAwesome');notify=1;tabstop=1;z=14};
+fieldAdd={cls="plus";text="加";left=615;top=537;right=672;bottom=570;bgcolor=11580047;db=1;dr=1;font=LOGFONT(h=-16;name='FontAwesome');notify=1;tabstop=1;z=11};
+fieldDel={cls="plus";text='\uF0C7 删';left=683;top=536;right=740;bottom=569;bgcolor=11580047;db=1;dr=1;font=LOGFONT(h=-16;name='FontAwesome');notify=1;tabstop=1;z=12};
+fieldDown={cls="plus";text="下移";left=825;top=538;right=882;bottom=571;bgcolor=11580047;db=1;dr=1;font=LOGFONT(h=-16;name='FontAwesome');notify=1;tabstop=1;z=14};
+fieldUp={cls="plus";text="上移";left=756;top=536;right=813;bottom=569;bgcolor=11580047;db=1;dr=1;font=LOGFONT(h=-16;name='FontAwesome');notify=1;tabstop=1;z=13};
 sysidAdd={cls="plus";text="加";left=1;top=532;right=58;bottom=565;bgcolor=11580047;db=1;dr=1;font=LOGFONT(h=-16;name='FontAwesome');notify=1;tabstop=1;z=3};
 sysidCtrl={cls="listview";left=0;top=0;right=269;bottom=533;bgcolor=13816530;db=1;dl=1;dt=1;edge=1;fullRow=1;gridLines=1;hscroll=1;vscroll=1;z=1};
 sysidDel={cls="plus";text="删";left=64;top=532;right=121;bottom=565;bgcolor=11580047;db=1;dr=1;font=LOGFONT(h=-16;name='FontAwesome');notify=1;tabstop=1;z=4};
@@ -36,7 +35,6 @@ var sysidSave = winform.sysidSave;
 var cmdAdd = winform.cmdAdd;
 var cmdDel = winform.cmdDel;
 var cmdModify = winform.cmdModify;
-var cmdSave = winform.cmdSave;
 var fieldAdd = winform.fieldAdd;
 var fieldDel = winform.fieldDel;
 var fieldDown = winform.fieldDown;
@@ -108,7 +106,6 @@ winform.adjust = function( cx,cy,wParam ) {
 	cmdAdd.setPos(cmdidCtrl.left, cmdidCtrl.height+5, btnWidth, btnHeight);
 	cmdDel.setPos(cmdAdd.right+5, cmdAdd.top, btnWidth, btnHeight);
 	cmdModify.setPos(cmdDel.right+5, cmdAdd.top, btnWidth, btnHeight);
-	cmdSave.setPos(cmdModify.right+5, cmdAdd.top, btnWidth, btnHeight);
 	
 	fieldAdd.setPos(detailCtrl.left, detailCtrl.height+5, btnWidth, btnHeight);
 	fieldDel.setPos(fieldAdd.right+5, fieldAdd.top, btnWidth, btnHeight);
@@ -299,9 +296,28 @@ cmdidCtrl.onDoubleClick = function(item,subItem,nmListView){
 cmdidCtrl.onRightClick = function(item,subItem,nmListView){
   
 }
+
+cmdAdd.oncommand = function(id,event){
+	var sysId = systool.GetNowSysId();
+	if not sysId and sysId != 0 {
+		return; 
+	}
+	var dlg = winform.loadForm("\dlg\addcmd.aardio");
+	dlg.doModal();
+	if dlg.refreshSysId {
+		
+	}
+}
+
+cmdDel.oncommand = function(id,event){
+	
+}
+
+cmdModify.oncommand = function(id,event){
+	
+}
+
 ///////////////////////////////// cmdidCtrl end //////////////////////////////////////////
-
-
 
 
 
