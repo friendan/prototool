@@ -1,6 +1,7 @@
 import win.ui;
 import web.msxml;
 import systool;
+import log;
 /*DSG{{*/
 var winform = win.form(text="新增系统命令";right=682;bottom=363;max=false;min=false)
 winform.add(
@@ -47,19 +48,31 @@ winform.btnSure.oncommand = function(id,event){
 	
 	var sysId = systool.GetNowSysId();
 	var filePath = string.format("/protocol/%s.xml", sysId);
+	//LOG_DEBUG("filePath", filePath);
 	var xmlDoc = web.msxml();
 	xmlDoc.load(filePath);
 	var root = xmlDoc.documentElement;
-	for(index, cmdNode in xmlDoc.eachNode("protocols/cmd")){
-		var cmdId2 = tonumber(systemNode.getAttribute("id"));
-		var from2 = tonumber(systemNode.getAttribute("from"));
-		if cmdId == cmdId and from == from2 {
+	var protocolsNode = root.selectSingleNode("/protocols");
+	var cmdNodeList = protocolsNode.selectNodes("cmd");
+	for index = 0; cmdNodeList.length - 1; 1 {
+		var cmdNode = cmdNodeList(index);
+		var cmdId2 = tonumber(cmdNode.getAttribute("id"));
+		var from2 = tonumber(cmdNode.getAttribute("from"));
+		//LOG_DEBUG("cmdId2", cmdId2, "from2", from2);
+		if cmdId == cmdId2 and from == from2 {
 			tipInfo.text = "该命令已经存在了！来源：" + fromText;
 			return; 
 		}
 	}
 	
-	
+	var cmdNode = xmlDoc.createNode("element", "cmd", "");
+	cmdNode.text = cmdName;
+	cmdNode.setAttribute("id", cmdId);
+	cmdNode.setAttribute("from", from);
+	cmdNode.setAttribute("name", cmdName);
+	protocolsNode.appendChild(cmdNode);
+	xmlDoc.save(filePath);
+	tipInfo.text = "命令添加成功!";
 }
 
 winform.show();
