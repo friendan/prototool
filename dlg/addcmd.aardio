@@ -71,6 +71,10 @@ winform.btnSure.oncommand = function(id,event){
 	cmdNode.setAttribute("from", from);
 	cmdNode.setAttribute("name", cmdName);
 	protocolsNode.appendChild(cmdNode);
+	
+	//<cmd id="1" from="1" name="test">111</cmd></protocols>
+	var xmlstr = string.replace(xmlDoc.xml,"@</cmd></protocols>",'</cmd>\n</protocols>'); //禁用模式匹配替换
+	var xmlDoc = web.msxml(xmlstr);
 	xmlDoc.save(filePath);
 	tipInfo.text = "命令添加成功!";
 }
