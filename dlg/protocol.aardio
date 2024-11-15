@@ -176,6 +176,10 @@ function refreshCmdList(sysid){
 			cmdNode.getAttribute("name"),
 		});
 	}
+	//排序
+	table.sort(cmdList,function(next){
+    	return owner[1] < next[1]
+	});
 	initCmdidCtrl(cmdList);
 }
 
