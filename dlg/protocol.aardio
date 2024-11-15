@@ -141,14 +141,23 @@ function initSysidCtrl(){
 	sysidCtrl.clear();
 	var xmlDoc = systool.GetSysIdXmlDoc();
 	//console.log(xmlDoc.xml);
+	var sysList = {};
 	for(index, systemNode in xmlDoc.eachNode("system")){
 		var hide = tonumber(systemNode.getAttribute("hide"));
 		if hide == 0 {
 			var sysid = tonumber(systemNode.getAttribute("id"));
 			var name = systemNode.getElementsByTagName("name")[0].text;
-			//console.log(sysid, name);
-    		sysidCtrl.addItem({ sysid, name });
+			table.insert(sysList, {
+				sysid,
+				name,
+			});
     	}
+	}
+	table.sort(sysList,function(next){
+    	return owner[1] < next[1]
+	});
+	for _, item in sysList{
+		sysidCtrl.addItem(item);
 	}
 }
 initSysidCtrl();
@@ -278,6 +287,7 @@ cmdidCtrl.onClick = function(item,subItem,nmListView){
 		if cmdNode.getAttribute("id") == cmdid {
 			var cmdChildNodes = cmdNode.childNodes;
 			detailCtrl.clear();
+			
 			for(index2, fieldNode in xmlDoc.eachNode("field",cmdNode)){ 
         		//::LOG_DEBUG("cmdChildNodes.length=", fieldNode.getAttribute("type"));
         		//::LOG_DEBUG("cmdChildNodes.length=", fieldNode.getAttribute("name"));
