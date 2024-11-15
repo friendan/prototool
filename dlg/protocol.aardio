@@ -235,7 +235,7 @@ sysidSave.oncommand = function(id,event){
 
 ///////////////////////////////// cmdidCtrl //////////////////////////////////////////
 cmdidCtrl.onClick = function(item,subItem,nmListView){
-	//console.log("item,subItem", item,subItem);
+	//::LOG_DEBUG("item,subItem", item,subItem);
 	if item < 1 {
 		return;
 	}
@@ -257,21 +257,25 @@ cmdidCtrl.onClick = function(item,subItem,nmListView){
 	if childNodes.length < 1 {
 		return;
 	}
-	var cmdNode = childNodes(item-1);
-	if not cmdNode {
-		return; 
-	}
-	//console.log("cmdNode", cmdNode.xml);
-	childNodes = cmdNode.childNodes;
-	detailCtrl.clear();
-	for(index = 0; childNodes.length-1; 1){
-		var fieldNode = childNodes(index);
-		detailCtrl.addItem({
-			index + 1,
-			fieldNode.getAttribute("type"),
-			fieldNode.getAttribute("name"),
-			fieldNode.getText(),
-		});		
+	for(var index = 0; childNodes.length-1; 1){
+		var cmdNode = childNodes(index);
+		if cmdNode.getAttribute("id") == cmdid {
+			var cmdChildNodes = cmdNode.childNodes;
+			detailCtrl.clear();
+			for(index2, fieldNode in xmlDoc.eachNode("field",cmdNode)){ 
+        		//::LOG_DEBUG("cmdChildNodes.length=", fieldNode.getAttribute("type"));
+        		//::LOG_DEBUG("cmdChildNodes.length=", fieldNode.getAttribute("name"));
+        		//::LOG_DEBUG("cmdChildNodes.length=", fieldNode.getText());
+        		detailCtrl.addItem({
+					index2,
+					fieldNode.getAttribute("type"),
+					fieldNode.getAttribute("name"),
+					fieldNode.getText(),
+				});		
+
+    		} 
+			break;
+		}
 	}
 }
 
