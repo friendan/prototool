@@ -153,12 +153,9 @@ function initSysidCtrl(){
 }
 initSysidCtrl();
 
-sysidCtrl.onClick = function(item,subItem,nmListView){
-	if item < 1 {
-		return; 
-	}
-  	var sysid = sysidCtrl.getItemText(item, 1);
-  	var filePath = string.format("/protocol/%s.xml", sysid);
+//刷新命令列表
+function refreshCmdList(sysid){
+	var filePath = string.format("/protocol/%s.xml", sysid);
   	var xmlDoc = web.msxml();
   	xmlDoc.load(filePath);
 	//console.log(filePath, xmlDoc.xml);
@@ -180,9 +177,19 @@ sysidCtrl.onClick = function(item,subItem,nmListView){
 		});
 	}
 	initCmdidCtrl(cmdList);
-	systool.SetNowSysId(sysid);
 }
 
+//点击系统id
+sysidCtrl.onClick = function(item,subItem,nmListView){
+	if item < 1 {
+		return; 
+	}
+  	var sysid = sysidCtrl.getItemText(item, 1);
+  	systool.SetNowSysId(sysid);
+  	refreshCmdList(sysid);
+}
+
+//增加系统id
 sysidAdd.oncommand = function(id,event){
 	var dlg = winform.loadForm("\dlg\addsysid.aardio");
 	dlg.doModal();
@@ -192,6 +199,7 @@ sysidAdd.oncommand = function(id,event){
 	}
 }
 
+//删除系统id
 sysidDel.oncommand = function(id,event){
 	var row = sysidCtrl.getSelection();
 	if row < 1 {
@@ -212,6 +220,7 @@ sysidDel.oncommand = function(id,event){
     }
 }
 
+//修改系统id
 sysidModify.oncommand = function(id,event){
 	var row = sysidCtrl.getSelection();
 	if row < 1 {
@@ -227,6 +236,7 @@ sysidModify.oncommand = function(id,event){
 	}
 }
 
+//保存系统id
 sysidSave.oncommand = function(id,event){
 	var xmlDoc = systool.GetSysIdXmlDoc();
 	xmlDoc.save(PROTOCOL_SYSFILE_PATH);
@@ -234,6 +244,8 @@ sysidSave.oncommand = function(id,event){
 ///////////////////////////////// sysidCtrl end //////////////////////////////////////////
 
 ///////////////////////////////// cmdidCtrl //////////////////////////////////////////
+
+//点击命令id
 cmdidCtrl.onClick = function(item,subItem,nmListView){
 	//::LOG_DEBUG("item,subItem", item,subItem);
 	if item < 1 {
@@ -301,6 +313,7 @@ cmdidCtrl.onRightClick = function(item,subItem,nmListView){
   
 }
 
+//加系统命令
 cmdAdd.oncommand = function(id,event){
 	var sysId = systool.GetNowSysId();
 	if not sysId and sysId != 0 {
@@ -309,7 +322,7 @@ cmdAdd.oncommand = function(id,event){
 	var dlg = winform.loadForm("\dlg\addcmd.aardio");
 	dlg.doModal();
 	if dlg.refreshSysId {
-		
+		refreshCmdList(sysId);
 	}
 }
 
