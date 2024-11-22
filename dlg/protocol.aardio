@@ -260,24 +260,24 @@ cmdidCtrl.onClick = function(item,subItem,nmListView){
   	var filePath = string.format("/protocol/%s.xml", sysid);
   	var xmlDoc = web.msxml();
   	xmlDoc.load(filePath);
-	//console.log(filePath, xmlDoc.xml);
 	var root = xmlDoc.documentElement;
 	if not root {
-		LOG_DEBUG(filePath, xmlDoc.xml, "item,subItem", item,subItem);
+		//LOG_DEBUG(filePath, xmlDoc.xml, "item,subItem", item,subItem);
 		return; 
 	}
 	var protocolsNode = root.selectSingleNode("/protocols");
-	//console.log("protocolsNode", protocolsNode, protocolsNode.xml);
 	var childNodes = protocolsNode.childNodes;
 	if childNodes.length < 1 {
 		return;
 	}
+	systool.SetNowCmdId(cmdid);
+	systool.SetNowCmdFrom(from);
 	for(var index = 0; childNodes.length-1; 1){
 		var cmdNode = childNodes(index);
-		if cmdNode.getAttribute("id") == cmdid {
+		if cmdNode.getAttribute("id") == cmdid and 
+		   cmdNode.getAttribute("from") == from {
 			var cmdChildNodes = cmdNode.childNodes;
 			detailCtrl.clear();
-			
 			for(index2, fieldNode in xmlDoc.eachNode("field",cmdNode)){ 
         		//::LOG_DEBUG("cmdChildNodes.length=", fieldNode.getAttribute("type"));
         		//::LOG_DEBUG("cmdChildNodes.length=", fieldNode.getAttribute("name"));
@@ -288,7 +288,6 @@ cmdidCtrl.onClick = function(item,subItem,nmListView){
 					fieldNode.getAttribute("name"),
 					fieldNode.getText(),
 				});		
-
     		} 
 			break;
 		}

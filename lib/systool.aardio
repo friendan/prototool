@@ -5,6 +5,8 @@ import config;
 var gSydIdXmlDoc = false;
 var PROTOCOL_SYSFILE_PATH = ..PROTOCOL_SYSFILE_PATH;
 var nowSysId = null;
+var nowCmdId = null;
+var nowCmdFrom = null;
 
 function GetSysIdXmlDoc(){
 	if not gSydIdXmlDoc {
@@ -23,8 +25,21 @@ function GetNowSysId(){
 	return nowSysId;
 }
 
+function SetNowCmdId(cmdId){
+	nowCmdId = cmdId;
+}
 
+function GetNowCmdId(){
+	return nowCmdId;
+}
 
+function SetNowCmdFrom(cmdFrom){
+	nowCmdFrom = cmdFrom;
+}
+
+function GetNowCmdFrom(){
+	return nowCmdFrom;
+}
 
 
 
