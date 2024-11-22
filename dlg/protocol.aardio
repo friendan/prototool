@@ -368,8 +368,28 @@ cmdDel.oncommand = function(id,event){
 	}
 }
 
+//修改系统命令
 cmdModify.oncommand = function(id,event){
-	
+	var row = cmdidCtrl.getSelection();
+	if row < 1 {
+		return; 
+	}
+	var cmdId = tonumber(cmdidCtrl.getItemText(row, 1));
+	var cmdSrc = cmdidCtrl.getItemText(row, 2);
+	var cmdName = cmdidCtrl.getItemText(row, 3);
+	var from = 0;
+	if cmdSrc == "前端" {
+		from = 1;
+	}
+	elseif cmdSrc == "后端" {
+		from = 2;
+	}
+	var dlg = winform.loadForm("\dlg\modifycmd.aardio", cmdId, from, cmdName);
+	dlg.doModal();
+	if dlg.refreshCmdId {
+		var sysId = systool.GetNowSysId();
+		refreshCmdList(sysId);
+	}
 }
 
 ///////////////////////////////// cmdidCtrl end //////////////////////////////////////////

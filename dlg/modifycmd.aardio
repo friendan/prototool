@@ -1,8 +1,84 @@
 import win.ui;
+import log;
+import systool;
 /*DSG{{*/
 var winform = win.form(text="aardio form";right=759;bottom=469)
-winform.add()
+winform.add(
+btnSure={cls="plus";text="确定";left=133;top=177;right=223;bottom=211;bgcolor=11580047;db=1;dr=1;font=LOGFONT(h=-16;name='FontAwesome');notify=1;tabstop=1;z=6};
+cmdId={cls="edit";left=133;top=53;right=223;bottom=83;edge=1;num=1;readonly=1;z=4};
+cmdName={cls="edit";left=132;top=111;right=698;bottom=146;edge=1;z=5};
+groupbox={cls="groupbox";text="来源：";left=251;top=46;right=449;bottom=100;edge=1;z=1};
+radioClient={cls="radiobutton";text="前端";left=300;top=67;right=359;bottom=96;z=8};
+radioServer={cls="radiobutton";text="后端";left=368;top=66;right=427;bottom=95;z=9};
+static={cls="static";text="命令id：";left=66;top=59;right=123;bottom=83;transparent=1;z=2};
+static2={cls="static";text="命令名称：";left=54;top=110;right=123;bottom=136;transparent=1;z=3};
+tipInfo={cls="static";text="Static";left=248;top=179;right=488;bottom=215;color=255;transparent=1;z=7}
+)
 /*}}*/
+
+var args = {...};//接收全部参数 args[1]是父窗口
+var tipInfo = winform.tipInfo;
+tipInfo.text = "";
+var fromOld = args[3] or 0;
+winform.cmdId.text = tostring(args[2]);
+winform.cmdName.text = tostring(args[4]);
+if fromOld == 1 {
+	winform.radioClient.checked = true;
+}
+elseif fromOld == 2{
+	winform.radioServer.checked = true;
+}
+
+winform.btnSure.oncommand = function(id,event){
+	var fromNew = 0;
+	var fromText = "";
+	if winform.radioClient.checked {
+		fromNew = 1;
+		fromText = winform.radioClient.text;
+	}
+	elseif winform.radioServer.checked {
+		fromNew = 2;
+		fromText = winform.radioServer.text;
+	}
+	else {
+		return; 
+	}
+	var sysId = systool.GetNowSysId();
+	if not sysId {
+		return; 
+	}
+	var filePath = string.format("/protocol/%s.xml", sysId);
+	//LOG_DEBUG("filePath", filePath);
+	var xmlDoc = web.msxml();
+	xmlDoc.load(filePath);
+	var root = xmlDoc.documentElement;
+	var protocolsNode = root.selectSingleNode("/protocols");
+	var cmdNodeList = protocolsNode.selectNodes("cmd");
+	var cmdId = tonumber(winform.cmdId.text);
+	for index = 0; cmdNodeList.length - 1; 1 {
+		var cmdNode = cmdNodeList(index);
+		var cmdId2 = tonumber(cmdNode.getAttribute("id"));
+		var from2 = tonumber(cmdNode.getAttribute("from"));
+		//LOG_DEBUG("cmdId2", cmdId2, "from2", from2);
+		if cmdId == cmdId2 and fromNew == from2 and fromNew != fromOld {
+			tipInfo.text = "该命令已经存在了！来源：" + fromText;
+			return; 
+		}
+	}
+	for index = 0; cmdNodeList.length - 1; 1 {
+		var cmdNode = cmdNodeList(index);
+		var cmdId2 = tonumber(cmdNode.getAttribute("id"));
+		var from2 = tonumber(cmdNode.getAttribute("from"));
+		if cmdId == cmdId2 and from2 == fromOld {
+			cmdNode.setAttribute("from", fromNew);
+			cmdNode.setAttribute("name", winform.cmdName.text);
+			winform.refreshCmdId = true;
+			xmlDoc.save(filePath);
+			break;
+		}
+	}
+	winform.close();
+}
 
 winform.show();
 win.loopMessage();
