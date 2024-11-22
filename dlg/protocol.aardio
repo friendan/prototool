@@ -8,20 +8,19 @@ import config;
 /*DSG{{*/
 var winform = win.form(text="设置";right=984;bottom=589;bgcolor=16777215)
 winform.add(
-cmdAdd={cls="plus";text='\uF0C7 加';left=284;top=536;right=341;bottom=569;bgcolor=11580047;db=1;dr=1;font=LOGFONT(h=-16;name='FontAwesome');notify=1;tabstop=1;z=8};
-cmdDel={cls="plus";text='\uF0C7 删';left=353;top=536;right=410;bottom=569;bgcolor=11580047;db=1;dr=1;font=LOGFONT(h=-16;name='FontAwesome');notify=1;tabstop=1;z=9};
-cmdModify={cls="plus";text='\uF0C7 改';left=424;top=537;right=481;bottom=570;bgcolor=11580047;db=1;dr=1;font=LOGFONT(h=-16;name='FontAwesome');notify=1;tabstop=1;z=10};
+cmdAdd={cls="plus";text='\uF0C7 加';left=284;top=536;right=341;bottom=569;bgcolor=11580047;db=1;dr=1;font=LOGFONT(h=-16;name='FontAwesome');notify=1;tabstop=1;z=7};
+cmdDel={cls="plus";text='\uF0C7 删';left=353;top=536;right=410;bottom=569;bgcolor=11580047;db=1;dr=1;font=LOGFONT(h=-16;name='FontAwesome');notify=1;tabstop=1;z=8};
+cmdModify={cls="plus";text='\uF0C7 改';left=424;top=537;right=481;bottom=570;bgcolor=11580047;db=1;dr=1;font=LOGFONT(h=-16;name='FontAwesome');notify=1;tabstop=1;z=9};
 cmdidCtrl={cls="listview";left=281;top=4;right=598;bottom=533;bgcolor=13816530;db=1;dl=1;dt=1;edge=1;fullRow=1;gridLines=1;hscroll=1;msel=false;vscroll=1;z=2};
-detailCtrl={cls="listview";left=613;top=4;right=930;bottom=533;bgcolor=13816530;db=1;dl=1;dt=1;edge=1;fullRow=1;gridLines=1;hscroll=1;msel=false;vscroll=1;z=7};
-fieldAdd={cls="plus";text="加";left=615;top=537;right=672;bottom=570;bgcolor=11580047;db=1;dr=1;font=LOGFONT(h=-16;name='FontAwesome');notify=1;tabstop=1;z=11};
-fieldDel={cls="plus";text='\uF0C7 删';left=683;top=536;right=740;bottom=569;bgcolor=11580047;db=1;dr=1;font=LOGFONT(h=-16;name='FontAwesome');notify=1;tabstop=1;z=12};
-fieldDown={cls="plus";text="下移";left=825;top=538;right=882;bottom=571;bgcolor=11580047;db=1;dr=1;font=LOGFONT(h=-16;name='FontAwesome');notify=1;tabstop=1;z=14};
-fieldUp={cls="plus";text="上移";left=756;top=536;right=813;bottom=569;bgcolor=11580047;db=1;dr=1;font=LOGFONT(h=-16;name='FontAwesome');notify=1;tabstop=1;z=13};
+detailCtrl={cls="listview";left=613;top=4;right=930;bottom=533;bgcolor=13816530;db=1;dl=1;dt=1;edge=1;fullRow=1;gridLines=1;hscroll=1;msel=false;vscroll=1;z=6};
+fieldAdd={cls="plus";text="加";left=615;top=537;right=672;bottom=570;bgcolor=11580047;db=1;dr=1;font=LOGFONT(h=-16;name='FontAwesome');notify=1;tabstop=1;z=10};
+fieldDel={cls="plus";text='\uF0C7 删';left=683;top=536;right=740;bottom=569;bgcolor=11580047;db=1;dr=1;font=LOGFONT(h=-16;name='FontAwesome');notify=1;tabstop=1;z=11};
+fieldDown={cls="plus";text="下移";left=825;top=538;right=882;bottom=571;bgcolor=11580047;db=1;dr=1;font=LOGFONT(h=-16;name='FontAwesome');notify=1;tabstop=1;z=13};
+fieldUp={cls="plus";text="上移";left=756;top=536;right=813;bottom=569;bgcolor=11580047;db=1;dr=1;font=LOGFONT(h=-16;name='FontAwesome');notify=1;tabstop=1;z=12};
 sysidAdd={cls="plus";text="加";left=1;top=532;right=58;bottom=565;bgcolor=11580047;db=1;dr=1;font=LOGFONT(h=-16;name='FontAwesome');notify=1;tabstop=1;z=3};
 sysidCtrl={cls="listview";left=0;top=0;right=269;bottom=533;bgcolor=13816530;db=1;dl=1;dt=1;edge=1;fullRow=1;gridLines=1;hscroll=1;vscroll=1;z=1};
 sysidDel={cls="plus";text="删";left=64;top=532;right=121;bottom=565;bgcolor=11580047;db=1;dr=1;font=LOGFONT(h=-16;name='FontAwesome');notify=1;tabstop=1;z=4};
-sysidModify={cls="plus";text="改";left=132;top=533;right=189;bottom=566;bgcolor=11580047;db=1;dr=1;font=LOGFONT(h=-16;name='FontAwesome');notify=1;tabstop=1;z=5};
-sysidSave={cls="plus";text='\uF0C7 存';left=199;top=534;right=256;bottom=567;bgcolor=11580047;db=1;dr=1;font=LOGFONT(h=-16;name='FontAwesome');notify=1;tabstop=1;z=6}
+sysidModify={cls="plus";text="改";left=132;top=533;right=189;bottom=566;bgcolor=11580047;db=1;dr=1;font=LOGFONT(h=-16;name='FontAwesome');notify=1;tabstop=1;z=5}
 )
 /*}}*/
 
@@ -31,7 +30,6 @@ var detailCtrl = winform.detailCtrl;
 var sysidAdd = winform.sysidAdd;
 var sysidDel = winform.sysidDel;
 var sysidModify = winform.sysidModify;
-var sysidSave = winform.sysidSave;
 var cmdAdd = winform.cmdAdd;
 var cmdDel = winform.cmdDel;
 var cmdModify = winform.cmdModify;
@@ -72,7 +70,6 @@ var btnBackground = {
 	disabled = "/res/images/btn-disabled.png"; 
 };
 sysidModify.skin(background = btnBackground,);
-sysidSave.skin(background = btnBackground,);
 sysidAdd.skin(background = btnBackground,);
 sysidDel.skin(background = btnBackground,);
 */
@@ -101,7 +98,6 @@ winform.adjust = function( cx,cy,wParam ) {
 	sysidAdd.setPos(sysidCtrl.left, sysidCtrl.height+5, btnWidth, btnHeight);
 	sysidDel.setPos(sysidAdd.right+5, sysidAdd.top, btnWidth, btnHeight);
 	sysidModify.setPos(sysidDel.right+5, sysidAdd.top, btnWidth, btnHeight);
-	sysidSave.setPos(sysidModify.right+5, sysidAdd.top, btnWidth, btnHeight);
 	
 	cmdAdd.setPos(cmdidCtrl.left, cmdidCtrl.height+5, btnWidth, btnHeight);
 	cmdDel.setPos(cmdAdd.right+5, cmdAdd.top, btnWidth, btnHeight);
@@ -248,11 +244,6 @@ sysidModify.oncommand = function(id,event){
 	}
 }
 
-//保存系统id
-sysidSave.oncommand = function(id,event){
-	var xmlDoc = systool.GetSysIdXmlDoc();
-	xmlDoc.save(PROTOCOL_SYSFILE_PATH);
-}
 ///////////////////////////////// sysidCtrl end //////////////////////////////////////////
 
 ///////////////////////////////// cmdidCtrl //////////////////////////////////////////
