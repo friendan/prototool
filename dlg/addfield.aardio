@@ -1,0 +1,31 @@
+import win.ui;
+/*DSG{{*/
+var winform = win.form(text="加协议字段";right=759;bottom=469)
+winform.add(
+cmbTypeList={cls="combobox";left=60;top=44;right=508;bottom=70;edge=1;items={};mode="dropdown";z=3};
+edit={cls="edit";left=61;top=168;right=722;bottom=435;edge=1;hscroll=1;multiline=1;vscroll=1;z=6};
+static={cls="static";text="数据类型：";left=59;top=22;right=127;bottom=42;transparent=1;z=1};
+static3={cls="static";text="变量名称：";left=58;top=79;right=129;bottom=103;transparent=1;z=2};
+static4={cls="static";text="变量说明：";left=59;top=144;right=130;bottom=168;transparent=1;z=5};
+varName={cls="edit";left=60;top=103;right=503;bottom=133;edge=1;z=4}
+)
+/*}}*/
+
+var cmbTypeList = winform.cmbTypeList;
+winform.cmbTypeList.add("1# char           字节数: 1, 范围:[-128,127]");
+winform.cmbTypeList.add("2# unsigned char  字节数: 1, 范围:[0,255]");
+winform.cmbTypeList.add("3# short          字节数: 2, 范围:[-32768,32767]");
+winform.cmbTypeList.add("4# unsigned short 字节数: 2, 范围:[0,65535]");
+winform.cmbTypeList.add("5# int            字节数: 4, 范围:[-2147483648,2147483647]");
+winform.cmbTypeList.add("6# unsigned int   字节数: 4, 范围:[0,4294967295]");
+winform.cmbTypeList.add("7# string");
+winform.cmbTypeList.add("8# boolean 范围：1或0");
+winform.cmbTypeList.add("9# double 字节数: 8 范围:[±2.22507e-308,±1.79769e+308]");
+winform.cmbTypeList.add("9# int64          字节数: 8 范围:[-9223372036854775808,9223372036854775807]");
+winform.cmbTypeList.add("9# unsigned int64 字节数: 8 范围:[0,18446744073709551615]");
+
+
+
+winform.show();
+win.loopMessage();
+return winform;

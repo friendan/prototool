@@ -397,7 +397,11 @@ cmdModify.oncommand = function(id,event){
 ///////////////////////////////// cmdidCtrl end //////////////////////////////////////////
 //加字段
 winform.fieldAdd.oncommand = function(id,event){
-	
+	if not systool.GetNowCmdId() {
+		return; 
+	}
+	var dlg = winform.loadForm("\dlg\addfield.aardio");
+	dlg.doModal();
 }
 
 //删字段

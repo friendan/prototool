@@ -11,5 +11,6 @@
 		<file name="modifysysid.aardio" path="dlg\modifysysid.aardio" comment="dlg\modifysysid.aardio"/>
 		<file name="addcmd.aardio" path="dlg\addcmd.aardio" comment="dlg\addcmd.aardio"/>
 		<file name="modifycmd.aardio" path="dlg\modifycmd.aardio" comment="dlg\modifycmd.aardio"/>
+		<file name="addfield.aardio" path="dlg\addfield.aardio" comment="dlg\addfield.aardio"/>
 	</folder>
 </project>
