@@ -170,7 +170,6 @@ function refreshCmdList(sysid){
 	//console.log(filePath, xmlDoc.xml);
 	var root = xmlDoc.documentElement;
 	if not root {
-		console.log(filePath, xmlDoc.xml, "item,subItem", item,subItem);
 		return; 
 	}
 	var protocolsNode = root.selectSingleNode("/protocols");
@@ -340,8 +339,42 @@ cmdAdd.oncommand = function(id,event){
 	}
 }
 
+//删除系统命令
 cmdDel.oncommand = function(id,event){
-	
+	var row = cmdidCtrl.getSelection();
+	if row < 1 {
+		return; 
+	}
+	var cmdId = tonumber(cmdidCtrl.getItemText(row, 1));
+	var cmdSrc = cmdidCtrl.getItemText(row, 2);
+	var ok = winform.msgboxTest("确定要删除吗？命令: "+cmdId+" 来源: "+cmdSrc ,"提示");
+	if not ok {
+		return; 
+	}
+	var sysId = systool.GetNowSysId();
+	var filePath = string.format("/protocol/%s.xml", sysId);
+  	var xmlDoc = web.msxml();
+  	xmlDoc.load(filePath);
+	var root = xmlDoc.documentElement;
+	var protocolsNode = root.selectSingleNode("/protocols");
+	var childNodes = protocolsNode.childNodes;
+	var from = 0;
+	if cmdSrc == "前端" {
+		from = 1;
+	}
+	elseif cmdSrc == "后端" {
+		from = 2;
+	}
+	for(index = 0; childNodes.length-1; 1){
+		var cmdNode = childNodes(index);
+		if cmdNode.getAttribute("id") == cmdId and 
+		   cmdNode.getAttribute("from") == from {
+			protocolsNode.removeChild(cmdNode);
+			xmlDoc.save(filePath);
+			refreshCmdList(sysId);
+			break;
+		}
+	}
 }
 
 cmdModify.oncommand = function(id,event){
