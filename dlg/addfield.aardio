@@ -32,8 +32,8 @@ winform.cmbTypeList.add("int64");
 winform.cmbTypeList.add("unsigned int64");
 
 if _STUDIO_INVOKED {
-	systool.SetNowSysId(systool.GetNowSysId() or 1);
-	systool.SetNowCmdId(systool.GetNowCmdId() or 1);
+	systool.SetNowSysId(systool.GetNowSysId() or 0);
+	systool.SetNowCmdId(systool.GetNowCmdId() or 0);
 	systool.SetNowCmdFrom(systool.GetNowCmdFrom() or 1);
 	cmbTypeList.selIndex = 1;
 	winform.varName.text = "test";
@@ -55,8 +55,29 @@ winform.btnSure.oncommand = function(id,event){
 	var cmdId = systool.GetNowCmdId();
 	var cmdFrom = systool.GetNowCmdFrom();
 	
-	
-	
+	var filePath = string.format("/protocol/%s.xml", sysId);
+	var xmlDoc = web.msxml();
+	xmlDoc.load(filePath);
+	var root = xmlDoc.documentElement;
+	var protocolsNode = root.selectSingleNode("/protocols");
+	var cmdNodeList = protocolsNode.selectNodes("cmd");
+	for index = 0; cmdNodeList.length - 1; 1 {
+		var cmdNode = cmdNodeList(index);
+		//LOG_DEBUG(sysId, cmdId, cmdNode.getAttribute("id"), cmdFrom, cmdNode.getAttribute("from"));
+		if cmdId == tonumber(cmdNode.getAttribute("id")) and cmdFrom == tonumber(cmdNode.getAttribute("from")) {
+			var fieldNode = xmlDoc.createNode("element", "field", "");
+			fieldNode.text = winform.nameDesc.text or "";
+			fieldNode.setAttribute("type", varType);
+			fieldNode.setAttribute("name", varName);
+			cmdNode.appendChild(fieldNode);
+		
+			var xmlstr = string.replace(xmlDoc.xml,"@</field></cmd>",'</field>\n</cmd>'); //禁用模式匹配替换
+			var xmlDoc = web.msxml(xmlstr);
+			xmlDoc.save(filePath);
+			//tipInfo.text = "ok";
+			return; 
+		}
+	}
 }
 
 winform.show();
