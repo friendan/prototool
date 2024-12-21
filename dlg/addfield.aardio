@@ -31,6 +31,14 @@ winform.cmbTypeList.add("double");
 winform.cmbTypeList.add("int64");
 winform.cmbTypeList.add("unsigned int64");
 
+if _STUDIO_INVOKED {
+	systool.SetNowSysId(systool.GetNowSysId() or 1);
+	systool.SetNowCmdId(systool.GetNowCmdId() or 1);
+	systool.SetNowCmdFrom(systool.GetNowCmdFrom() or 1);
+	cmbTypeList.selIndex = 1;
+	winform.varName.text = "test";
+}
+
 winform.btnSure.oncommand = function(id,event){
 	tipInfo.text = "";
 	var varType = string.trim(cmbTypeList.selText);
@@ -43,7 +51,9 @@ winform.btnSure.oncommand = function(id,event){
 		tipInfo.text = "请输入变量名称！";
 		return; 
 	} 
-	
+	var sysId = systool.GetNowSysId();
+	var cmdId = systool.GetNowCmdId();
+	var cmdFrom = systool.GetNowCmdFrom();
 	
 	
 	
