@@ -65,6 +65,16 @@ winform.btnSure.oncommand = function(id,event){
 		var cmdNode = cmdNodeList(index);
 		//LOG_DEBUG(sysId, cmdId, cmdNode.getAttribute("id"), cmdFrom, cmdNode.getAttribute("from"));
 		if cmdId == tonumber(cmdNode.getAttribute("id")) and cmdFrom == tonumber(cmdNode.getAttribute("from")) {
+			
+			var fieldNodeList = cmdNode.selectNodes("field");
+			for index2 = 0; fieldNodeList.length - 1; 1 {
+				var fieldNode = fieldNodeList(index2);
+				if fieldNode.getAttribute("name") == varName {
+					tipInfo.text = "变量名称已经存在了!";
+					return;
+				}
+			}
+			
 			var fieldNode = xmlDoc.createNode("element", "field", "");
 			fieldNode.text = winform.nameDesc.text or "";
 			fieldNode.setAttribute("type", varType);
