@@ -19,17 +19,7 @@ varName={cls="edit";left=60;top=103;right=270;bottom=133;edge=1;z=4}
 var tipInfo = winform.tipInfo;
 tipInfo.text = "";
 var cmbTypeList = winform.cmbTypeList;
-winform.cmbTypeList.add("char");
-winform.cmbTypeList.add("unsigned char");
-winform.cmbTypeList.add("short");
-winform.cmbTypeList.add("unsigned short");
-winform.cmbTypeList.add("int");
-winform.cmbTypeList.add("unsigned int");
-winform.cmbTypeList.add("string");
-winform.cmbTypeList.add("float");
-winform.cmbTypeList.add("double");
-winform.cmbTypeList.add("int64");
-winform.cmbTypeList.add("unsigned int64");
+winform.cmbTypeList.items= ..PROTOCOL_FIELD_LIST;
 
 if _STUDIO_INVOKED {
 	systool.SetNowSysId(systool.GetNowSysId() or 0);

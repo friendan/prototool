@@ -472,7 +472,18 @@ winform.fieldDel.oncommand = function(id,event){
 
 //改字段
 winform.fieldModify.oncommand = function(id,event){
-	
+	var row = detailCtrl.getSelection();
+	if row < 1 {
+		return; 
+	}
+	var varType = detailCtrl.getItemText(row, 2);
+	var varName = detailCtrl.getItemText(row, 3);
+	var nameDesc = detailCtrl.getItemText(row, 4);
+	var dlg = winform.loadForm("\dlg\modifyfield.aardio", varType, varName, nameDesc);
+	dlg.doModal();
+	if dlg.refreshField {
+		refreshFieldList();
+	}
 }
 
 //上移字段

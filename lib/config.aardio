@@ -10,6 +10,19 @@ namespace config {
 	__website = "http://www.aardio.com/";
 }
 
+PROTOCOL_FIELD_LIST = {
+	"char",
+	"unsigned char",
+	"short",
+	"unsigned short",
+	"int",
+	"unsigned int",
+	"string",
+	"float",
+	"double",
+	"int64",
+	"unsigned int64"
+}
 
 /**intellisense(config)
 __appName = 应用程序名

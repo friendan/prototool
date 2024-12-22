@@ -1,0 +1,84 @@
+import win.ui;
+import web.msxml;
+import systool;
+import log;
+/*DSG{{*/
+var winform = win.form(text="修改协议字段";right=759;bottom=469)
+winform.add(
+btnSure={cls="plus";text="确定";left=297;top=103;right=387;bottom=137;bgcolor=11580047;db=1;dr=1;font=LOGFONT(h=-16;name='FontAwesome');notify=1;tabstop=1;z=7};
+cmbTypeList={cls="combobox";left=60;top=44;right=270;bottom=70;edge=1;items={};mode="dropdown";z=3};
+nameDesc={cls="edit";left=60;top=168;right=721;bottom=435;edge=1;hscroll=1;multiline=1;vscroll=1;z=6};
+static={cls="static";text="数据类型：";left=59;top=22;right=127;bottom=42;transparent=1;z=1};
+static3={cls="static";text="变量名称：";left=58;top=79;right=129;bottom=103;transparent=1;z=2};
+static4={cls="static";text="变量说明：";left=59;top=144;right=130;bottom=168;transparent=1;z=5};
+tipInfo={cls="static";text="Static";left=297;top=44;right=635;bottom=80;color=255;transparent=1;z=8};
+varName={cls="edit";left=60;top=103;right=270;bottom=133;edge=1;z=4}
+)
+/*}}*/
+
+var tipInfo = winform.tipInfo;
+tipInfo.text = "";
+var cmbTypeList = winform.cmbTypeList;
+winform.cmbTypeList.items= ..PROTOCOL_FIELD_LIST;
+
+var args = {...};//接收全部参数 args[1]是父窗口
+cmbTypeList.selText = args[2];
+winform.varName.text = args[3];
+winform.nameDesc.text = args[4];
+var varNameOld = winform.varName.text;
+
+winform.btnSure.oncommand = function(id,event){
+	tipInfo.text = "";
+	var varType = string.trim(cmbTypeList.selText);
+	var varName = string.trim(winform.varName.text);
+	if string.len(varType) < 1 {
+		tipInfo.text = "请选择变量类型！";
+		return; 
+	}
+	if string.len(varName) < 1 {
+		tipInfo.text = "请输入变量名称！";
+		return; 
+	} 
+	var sysId = systool.GetNowSysId();
+	var cmdId = systool.GetNowCmdId();
+	var cmdFrom = systool.GetNowCmdFrom();
+	
+	var filePath = string.format("/protocol/%s.xml", sysId);
+	var xmlDoc = web.msxml();
+	xmlDoc.load(filePath);
+	var root = xmlDoc.documentElement;
+	var protocolsNode = root.selectSingleNode("/protocols");
+	var cmdNodeList = protocolsNode.selectNodes("cmd");
+	for index = 0; cmdNodeList.length - 1; 1 {
+		var cmdNode = cmdNodeList(index);
+		//LOG_DEBUG(sysId, cmdId, cmdNode.getAttribute("id"), cmdFrom, cmdNode.getAttribute("from"));
+		if cmdId == tonumber(cmdNode.getAttribute("id")) and cmdFrom == tonumber(cmdNode.getAttribute("from")) {
+			
+			var fieldNodeList = cmdNode.selectNodes("field");
+			for index2 = 0; fieldNodeList.length - 1; 1 {
+				var fieldNode = fieldNodeList(index2);
+				//LOG_DEBUG(varName, fieldNode.getAttribute("name"));
+				if fieldNode.getAttribute("name") == varName and varName != varNameOld {
+					tipInfo.text = "变量名称已经存在了!";
+					return;
+				}
+			}
+			for index2 = 0; fieldNodeList.length - 1; 1 {
+				var fieldNode = fieldNodeList(index2);
+				if fieldNode.getAttribute("name") == varNameOld {
+					fieldNode.text = winform.nameDesc.text or "";
+					fieldNode.setAttribute("type", varType);
+					fieldNode.setAttribute("name", varName);
+					xmlDoc.save(filePath);
+					winform.refreshField = true;
+					winform.close();
+					return;
+				}
+			}
+		}
+	}
+}
+
+winform.show();
+win.loopMessage();
+return winform;
