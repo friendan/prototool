@@ -313,7 +313,7 @@ function refreshFieldList(cmdNode){
 	for index = 0; fieldNodeList.length - 1; 1 {
 		var fieldNode = fieldNodeList(index);
 		detailCtrl.addItem({
-			index,
+			index+1,
 			fieldNode.getAttribute("type"),
 			fieldNode.getAttribute("name"),
 			fieldNode.getText(),
@@ -488,12 +488,115 @@ winform.fieldModify.oncommand = function(id,event){
 
 //上移字段
 winform.fieldUp.oncommand = function(id,event){
+	//msXmlNodeObject.insertBefore(插入新节点,子节点)
+	var row = detailCtrl.getSelection();
+	if row < 1 {
+		return; 
+	}
+	var varName = detailCtrl.getItemText(row, 3);
+	var sysId = systool.GetNowSysId();
+	var cmdId = systool.GetNowCmdId();
+	var cmdFrom = systool.GetNowCmdFrom();
 	
+	var filePath = string.format("/protocol/%s.xml", sysId);
+	var xmlDoc = web.msxml();
+	xmlDoc.load(filePath);
+	var root = xmlDoc.documentElement;
+	var protocolsNode = root.selectSingleNode("/protocols");
+	var cmdNodeList = protocolsNode.selectNodes("cmd");
+	
+	for index = 0; cmdNodeList.length - 1; 1 {
+		var cmdNode = cmdNodeList(index);
+		if cmdId == tonumber(cmdNode.getAttribute("id")) and cmdFrom == tonumber(cmdNode.getAttribute("from")) {
+			var fieldNodeList = cmdNode.selectNodes("field");
+			var fieldNodeNew;
+			var index3 = 0;
+			for index2 = 0; fieldNodeList.length - 1; 1 {
+				var fieldNode = fieldNodeList(index2);
+				if fieldNode.getAttribute("name") == varName {
+					if index2 == 0 {
+						return; 
+					}
+					fieldNodeNew = fieldNode.cloneNode();
+					cmdNode.removeChild(fieldNode);
+					index3 = index2 - 1;
+					break;
+				}
+			}
+			for index2 = 0; fieldNodeList.length - 1; 1 {
+				var fieldNode = fieldNodeList(index2);
+				if index2 == index3 {
+					cmdNode.insertBefore(fieldNodeNew, fieldNode);
+					var xmlstr = string.replace(xmlDoc.xml,"@</field></cmd>",'</field>\n</cmd>'); //禁用模式匹配替换
+					var xmlDoc = web.msxml(xmlstr);
+					xmlDoc.save(filePath);
+					refreshFieldList(cmdNode);
+					return;
+				}
+			}
+		}
+	}
 }
 
 //下移字段
 winform.fieldDown.oncommand = function(id,event){
+	var row = detailCtrl.getSelection();
+	if row < 1 {
+		return; 
+	}
+	var varName = detailCtrl.getItemText(row, 3);
+	var sysId = systool.GetNowSysId();
+	var cmdId = systool.GetNowCmdId();
+	var cmdFrom = systool.GetNowCmdFrom();
 	
+	var filePath = string.format("/protocol/%s.xml", sysId);
+	var xmlDoc = web.msxml();
+	xmlDoc.load(filePath);
+	var root = xmlDoc.documentElement;
+	var protocolsNode = root.selectSingleNode("/protocols");
+	var cmdNodeList = protocolsNode.selectNodes("cmd");
+	
+	for index = 0; cmdNodeList.length - 1; 1 {
+		var cmdNode = cmdNodeList(index);
+		if cmdId == tonumber(cmdNode.getAttribute("id")) and cmdFrom == tonumber(cmdNode.getAttribute("from")) {
+			var fieldNodeList = cmdNode.selectNodes("field");
+			var fieldNodeNew;
+			var index3 = 0;
+			for index2 = 0; fieldNodeList.length - 1; 1 {
+				var fieldNode = fieldNodeList(index2);
+				if fieldNode.getAttribute("name") == varName {
+					if index2 == fieldNodeList.length - 1 {
+						return; 
+					}
+					fieldNodeNew = fieldNode.cloneNode();
+					cmdNode.removeChild(fieldNode);
+					index3 = index2 + 1;
+					break;
+				}
+			}
+			//LOG_DEBUG("index3", index3);
+			fieldNodeList = cmdNode.selectNodes("field");
+			for index2 = 0; fieldNodeList.length - 1; 1 {
+				//LOG_DEBUG("index2", index2, "index3", index3);
+				var fieldNode = fieldNodeList(index2);
+				if index2 == index3 {
+					cmdNode.insertBefore(fieldNodeNew, fieldNode);
+					var xmlstr = string.replace(xmlDoc.xml,"@</field></cmd>",'</field>\n</cmd>'); //禁用模式匹配替换
+					var xmlDoc = web.msxml(xmlstr);
+					xmlDoc.save(filePath);
+					refreshFieldList(cmdNode);
+					//LOG_DEBUG("ok");
+					return;
+				}
+			}
+			cmdNode.appendChild(fieldNodeNew);
+			var xmlstr = string.replace(xmlDoc.xml,"@</field></cmd>",'</field>\n</cmd>'); //禁用模式匹配替换
+			var xmlDoc = web.msxml(xmlstr);
+			xmlDoc.save(filePath);
+			refreshFieldList(cmdNode);
+			//LOG_DEBUG("ok2");
+		}
+	}
 }
 
 winform.show();
