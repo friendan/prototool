@@ -1,5 +1,6 @@
 import fonts.fontAwesome;
 import win.ui;
+import win.ui.menu;
 import win.inputBox;
 import log;
 import systool;
@@ -63,6 +64,303 @@ detailCtrl.fullRow = true;
 //启用双缓冲, 可用于实现虚表时避免拖动时闪烁
 sysidCtrl.enableDoubleBuffering();
 cmdidCtrl.enableDoubleBuffering();
+
+///////////////////////////// 系统id 右键菜单 /////////////////////////////
+winform.popmenuSysId = win.ui.popmenu(winform);
+winform.popmenuSysId.add("添加系统",function(id){
+	var dlg = winform.loadForm("\dlg\addsysid.aardio");
+	dlg.doModal();
+	//LOG_DEBUG("refreshSysId", dlg.refreshSysId);
+	if dlg.refreshSysId {
+		initSysidCtrl();
+	}
+});
+winform.popmenuSysId.add("修改系统",function(id){
+	var row = sysidCtrl.getSelection();
+	if row < 1 {
+		return; 
+	}
+	var dlg = winform.loadForm("\dlg\modifysysid.aardio",
+	sysidCtrl.getItemText(row, 1),
+	sysidCtrl.getItemText(row, 2));
+	dlg.doModal();
+	//LOG_DEBUG("refreshSysId", dlg.refreshSysId);
+	if dlg.refreshSysId {
+		initSysidCtrl();
+	}
+});
+winform.popmenuSysId.add("删除系统",function(id){
+	var row = sysidCtrl.getSelection();
+	if row < 1 {
+		return; 
+	}
+	var sysId = tonumber(sysidCtrl.getItemText(row, 1));
+	var ok = winform.msgboxTest("你确定要删除吗？sysId="+sysId,"提示");
+    if(ok){
+       var xmlDoc = systool.GetSysIdXmlDoc();
+		for(index, systemNode in xmlDoc.eachNode("system")){
+			var sysId2 = tonumber(systemNode.getAttribute("id"));
+			if sysId == sysId2 {
+				systemNode.setAttribute("hide", 1);
+				initSysidCtrl();
+				break;
+			}
+		}
+    }
+});
+sysidCtrl.onRightClick = function(item,subItem,nmListView){
+	winform.popmenuSysId.popup(); //弹出菜单
+}
+
+///////////////////////////// 命令id 右键菜单 /////////////////////////////
+winform.popmenuCmdId = win.ui.popmenu(winform);
+winform.popmenuCmdId.add("添加命令",function(id){
+	var sysId = systool.GetNowSysId();
+	if not sysId and sysId != 0 {
+		return; 
+	}
+	var dlg = winform.loadForm("\dlg\addcmd.aardio");
+	dlg.doModal();
+	if dlg.refreshSysId {
+		refreshCmdList(sysId);
+	}
+});
+winform.popmenuCmdId.add("修改命令",function(id){
+	var row = cmdidCtrl.getSelection();
+	if row < 1 {
+		return; 
+	}
+	var cmdId = tonumber(cmdidCtrl.getItemText(row, 1));
+	var cmdSrc = cmdidCtrl.getItemText(row, 2);
+	var cmdName = cmdidCtrl.getItemText(row, 3);
+	var from = 0;
+	if cmdSrc == "前端" {
+		from = 1;
+	}
+	elseif cmdSrc == "后端" {
+		from = 2;
+	}
+	var dlg = winform.loadForm("\dlg\modifycmd.aardio", cmdId, from, cmdName);
+	dlg.doModal();
+	if dlg.refreshCmdId {
+		var sysId = systool.GetNowSysId();
+		refreshCmdList(sysId);
+	}
+});
+winform.popmenuCmdId.add("删除命令",function(id){
+	var row = cmdidCtrl.getSelection();
+	if row < 1 {
+		return; 
+	}
+	var cmdId = tonumber(cmdidCtrl.getItemText(row, 1));
+	var cmdSrc = cmdidCtrl.getItemText(row, 2);
+	var ok = winform.msgboxTest("确定要删除吗？命令: "+cmdId+" 来源: "+cmdSrc ,"提示");
+	if not ok {
+		return; 
+	}
+	var sysId = systool.GetNowSysId();
+	var filePath = string.format("/protocol/%s.xml", sysId);
+  	var xmlDoc = web.msxml();
+  	xmlDoc.load(filePath);
+	var root = xmlDoc.documentElement;
+	var protocolsNode = root.selectSingleNode("/protocols");
+	var childNodes = protocolsNode.childNodes;
+	var from = 0;
+	if cmdSrc == "前端" {
+		from = 1;
+	}
+	elseif cmdSrc == "后端" {
+		from = 2;
+	}
+	for(index = 0; childNodes.length-1; 1){
+		var cmdNode = childNodes(index);
+		if cmdNode.getAttribute("id") == cmdId and 
+		   cmdNode.getAttribute("from") == from {
+			protocolsNode.removeChild(cmdNode);
+			xmlDoc.save(filePath);
+			refreshCmdList(sysId);
+			break;
+		}
+	}
+});
+cmdidCtrl.onRightClick = function(item,subItem,nmListView){
+	winform.popmenuCmdId.popup(); //弹出菜单
+}
+
+///////////////////////////// 协议字段 右键菜单 /////////////////////////////
+winform.popmenuField = win.ui.popmenu(winform);
+winform.popmenuField.add("添加字段",function(id){
+	if not systool.GetNowCmdId() {
+		return; 
+	}
+	var dlg = winform.loadForm("\dlg\addfield.aardio");
+	dlg.doModal();
+	if dlg.refreshField {
+		refreshFieldList();
+	}
+});
+winform.popmenuField.add("修改字段",function(id){
+	var row = detailCtrl.getSelection();
+	if row < 1 {
+		return; 
+	}
+	var varType = detailCtrl.getItemText(row, 2);
+	var varName = detailCtrl.getItemText(row, 3);
+	var nameDesc = detailCtrl.getItemText(row, 4);
+	var dlg = winform.loadForm("\dlg\modifyfield.aardio", varType, varName, nameDesc);
+	dlg.doModal();
+	if dlg.refreshField {
+		refreshFieldList();
+	}
+});
+winform.popmenuField.add("字段上移",function(id){
+	//msXmlNodeObject.insertBefore(插入新节点,子节点)
+	var row = detailCtrl.getSelection();
+	if row < 1 {
+		return; 
+	}
+	var varName = detailCtrl.getItemText(row, 3);
+	var sysId = systool.GetNowSysId();
+	var cmdId = systool.GetNowCmdId();
+	var cmdFrom = systool.GetNowCmdFrom();
+	
+	var filePath = string.format("/protocol/%s.xml", sysId);
+	var xmlDoc = web.msxml();
+	xmlDoc.load(filePath);
+	var root = xmlDoc.documentElement;
+	var protocolsNode = root.selectSingleNode("/protocols");
+	var cmdNodeList = protocolsNode.selectNodes("cmd");
+	
+	for index = 0; cmdNodeList.length - 1; 1 {
+		var cmdNode = cmdNodeList(index);
+		if cmdId == tonumber(cmdNode.getAttribute("id")) and cmdFrom == tonumber(cmdNode.getAttribute("from")) {
+			var fieldNodeList = cmdNode.selectNodes("field");
+			var fieldNodeNew;
+			var index3 = 0;
+			for index2 = 0; fieldNodeList.length - 1; 1 {
+				var fieldNode = fieldNodeList(index2);
+				if fieldNode.getAttribute("name") == varName {
+					if index2 == 0 {
+						return; 
+					}
+					fieldNodeNew = fieldNode.cloneNode();
+					cmdNode.removeChild(fieldNode);
+					index3 = index2 - 1;
+					break;
+				}
+			}
+			for index2 = 0; fieldNodeList.length - 1; 1 {
+				var fieldNode = fieldNodeList(index2);
+				if index2 == index3 {
+					cmdNode.insertBefore(fieldNodeNew, fieldNode);
+					var xmlstr = string.replace(xmlDoc.xml,"@</field></cmd>",'</field>\n</cmd>'); //禁用模式匹配替换
+					var xmlDoc = web.msxml(xmlstr);
+					xmlDoc.save(filePath);
+					refreshFieldList(cmdNode);
+					return;
+				}
+			}
+		}
+	}
+});
+winform.popmenuField.add("字段下移",function(id){
+	var row = detailCtrl.getSelection();
+	if row < 1 {
+		return; 
+	}
+	var varName = detailCtrl.getItemText(row, 3);
+	var sysId = systool.GetNowSysId();
+	var cmdId = systool.GetNowCmdId();
+	var cmdFrom = systool.GetNowCmdFrom();
+	
+	var filePath = string.format("/protocol/%s.xml", sysId);
+	var xmlDoc = web.msxml();
+	xmlDoc.load(filePath);
+	var root = xmlDoc.documentElement;
+	var protocolsNode = root.selectSingleNode("/protocols");
+	var cmdNodeList = protocolsNode.selectNodes("cmd");
+	
+	for index = 0; cmdNodeList.length - 1; 1 {
+		var cmdNode = cmdNodeList(index);
+		if cmdId == tonumber(cmdNode.getAttribute("id")) and cmdFrom == tonumber(cmdNode.getAttribute("from")) {
+			var fieldNodeList = cmdNode.selectNodes("field");
+			var fieldNodeNew;
+			var index3 = 0;
+			for index2 = 0; fieldNodeList.length - 1; 1 {
+				var fieldNode = fieldNodeList(index2);
+				if fieldNode.getAttribute("name") == varName {
+					if index2 == fieldNodeList.length - 1 {
+						return; 
+					}
+					fieldNodeNew = fieldNode.cloneNode();
+					cmdNode.removeChild(fieldNode);
+					index3 = index2 + 1;
+					break;
+				}
+			}
+			//LOG_DEBUG("index3", index3);
+			fieldNodeList = cmdNode.selectNodes("field");
+			for index2 = 0; fieldNodeList.length - 1; 1 {
+				//LOG_DEBUG("index2", index2, "index3", index3);
+				var fieldNode = fieldNodeList(index2);
+				if index2 == index3 {
+					cmdNode.insertBefore(fieldNodeNew, fieldNode);
+					var xmlstr = string.replace(xmlDoc.xml,"@</field></cmd>",'</field>\n</cmd>'); //禁用模式匹配替换
+					var xmlDoc = web.msxml(xmlstr);
+					xmlDoc.save(filePath);
+					refreshFieldList(cmdNode);
+					//LOG_DEBUG("ok");
+					return;
+				}
+			}
+			cmdNode.appendChild(fieldNodeNew);
+			var xmlstr = string.replace(xmlDoc.xml,"@</field></cmd>",'</field>\n</cmd>'); //禁用模式匹配替换
+			var xmlDoc = web.msxml(xmlstr);
+			xmlDoc.save(filePath);
+			refreshFieldList(cmdNode);
+			//LOG_DEBUG("ok2");
+		}
+	}
+});
+winform.popmenuField.add("删除字段",function(id){
+	var row = detailCtrl.getSelection();
+	if row < 1 {
+		return; 
+	}
+	var varName = detailCtrl.getItemText(row, 3);
+	var ok = winform.msgboxTest("确定要删除吗？变量: "+varName,"提示");
+	if not ok {
+		return; 
+	}
+	var sysId = systool.GetNowSysId();
+	var cmdId = systool.GetNowCmdId();
+	var cmdFrom = systool.GetNowCmdFrom();
+	var filePath = string.format("/protocol/%s.xml", sysId);
+	var xmlDoc = web.msxml();
+	xmlDoc.load(filePath);
+	var root = xmlDoc.documentElement;
+	var protocolsNode = root.selectSingleNode("/protocols");
+	var cmdNodeList = protocolsNode.selectNodes("cmd");
+	for index = 0; cmdNodeList.length - 1; 1 {
+		var cmdNode = cmdNodeList(index);
+		if cmdId == tonumber(cmdNode.getAttribute("id")) and 
+			cmdFrom == tonumber(cmdNode.getAttribute("from")) {
+ 				var fieldNodeList = cmdNode.selectNodes("field");
+				for index2 = 0; fieldNodeList.length - 1; 1 {
+					var fieldNode = fieldNodeList(index2);
+					if fieldNode.getAttribute("name") == varName {
+						cmdNode.removeChild(fieldNode);
+						xmlDoc.save(filePath);
+						refreshFieldList(cmdNode);
+						return;
+					}
+				}
+		}
+	}
+});
+detailCtrl.onRightClick = function(item,subItem,nmListView){
+	winform.popmenuField.popup(); //弹出菜单
+}
 
 /*
 var btnBackground = { 
@@ -340,9 +638,6 @@ cmdidCtrl.onDoubleClick = function(item,subItem,nmListView){
     }
 }
 
-cmdidCtrl.onRightClick = function(item,subItem,nmListView){
-  
-}
 
 //加系统命令
 cmdAdd.oncommand = function(id,event){

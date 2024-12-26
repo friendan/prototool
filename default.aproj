@@ -7,11 +7,9 @@
 		<file name="addfield.aardio" path="dlg\addfield.aardio" comment="dlg\addfield.aardio"/>
 		<file name="addsysid.aardio" path="dlg\addsysid.aardio" comment="dlg\addsysid.aardio"/>
 		<file name="help.aardio" path="dlg\help.aardio" comment="dlg\help.aardio"/>
-		<file name="hotkey.aardio" path="dlg\hotkey.aardio" comment="dlg\hotkey.aardio"/>
 		<file name="modifycmd.aardio" path="dlg\modifycmd.aardio" comment="dlg\modifycmd.aardio"/>
 		<file name="modifyfield.aardio" path="dlg\modifyfield.aardio" comment="dlg\modifyfield.aardio"/>
 		<file name="modifysysid.aardio" path="dlg\modifysysid.aardio" comment="dlg\modifysysid.aardio"/>
 		<file name="protocol.aardio" path="dlg\protocol.aardio" comment="dlg\protocol.aardio"/>
-		<file name="setting.aardio" path="dlg\setting.aardio" comment="dlg\setting.aardio"/>
 	</folder>
 </project>
