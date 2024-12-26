@@ -9,39 +9,15 @@ import config;
 /*DSG{{*/
 var winform = win.form(text="设置";right=984;bottom=589;bgcolor=16777215)
 winform.add(
-cmdAdd={cls="plus";text='\uF0C7 加';left=284;top=536;right=341;bottom=569;bgcolor=11580047;db=1;dr=1;font=LOGFONT(h=-16;name='FontAwesome');notify=1;tabstop=1;z=7};
-cmdDel={cls="plus";text='\uF0C7 删';left=353;top=536;right=410;bottom=569;bgcolor=11580047;db=1;dr=1;font=LOGFONT(h=-16;name='FontAwesome');notify=1;tabstop=1;z=8};
-cmdModify={cls="plus";text='\uF0C7 改';left=424;top=537;right=481;bottom=570;bgcolor=11580047;db=1;dr=1;font=LOGFONT(h=-16;name='FontAwesome');notify=1;tabstop=1;z=9};
 cmdidCtrl={cls="listview";left=281;top=4;right=598;bottom=533;db=1;dl=1;dt=1;edge=1;fullRow=1;gridLines=1;hscroll=1;msel=false;vscroll=1;z=2};
-detailCtrl={cls="listview";left=613;top=4;right=930;bottom=533;db=1;dl=1;dt=1;edge=1;fullRow=1;gridLines=1;hscroll=1;msel=false;vscroll=1;z=6};
-fieldAdd={cls="plus";text="加";left=615;top=537;right=672;bottom=570;bgcolor=11580047;db=1;dr=1;font=LOGFONT(h=-16;name='FontAwesome');notify=1;tabstop=1;z=10};
-fieldDel={cls="plus";text='\uF0C7 删';left=684;top=536;right=741;bottom=569;bgcolor=11580047;db=1;dr=1;font=LOGFONT(h=-16;name='FontAwesome');notify=1;tabstop=1;z=11};
-fieldDown={cls="plus";text="下移";left=875;top=535;right=932;bottom=568;bgcolor=11580047;db=1;dr=1;font=LOGFONT(h=-16;name='FontAwesome');notify=1;tabstop=1;z=13};
-fieldModify={cls="plus";text='\uF0C7 改';left=744;top=536;right=801;bottom=569;bgcolor=11580047;db=1;dr=1;font=LOGFONT(h=-16;name='FontAwesome');notify=1;tabstop=1;z=14};
-fieldUp={cls="plus";text="上移";left=811;top=535;right=868;bottom=568;bgcolor=11580047;db=1;dr=1;font=LOGFONT(h=-16;name='FontAwesome');notify=1;tabstop=1;z=12};
-sysidAdd={cls="plus";text="加";left=1;top=532;right=58;bottom=565;bgcolor=11580047;db=1;dr=1;font=LOGFONT(h=-16;name='FontAwesome');notify=1;tabstop=1;z=3};
-sysidCtrl={cls="listview";left=0;top=0;right=269;bottom=533;db=1;dl=1;dt=1;edge=1;fullRow=1;gridLines=1;hscroll=1;vscroll=1;z=1};
-sysidDel={cls="plus";text="删";left=64;top=532;right=121;bottom=565;bgcolor=11580047;db=1;dr=1;font=LOGFONT(h=-16;name='FontAwesome');notify=1;tabstop=1;z=4};
-sysidModify={cls="plus";text="改";left=132;top=533;right=189;bottom=566;bgcolor=11580047;db=1;dr=1;font=LOGFONT(h=-16;name='FontAwesome');notify=1;tabstop=1;z=5}
+detailCtrl={cls="listview";left=613;top=4;right=930;bottom=533;db=1;dl=1;dt=1;edge=1;fullRow=1;gridLines=1;hscroll=1;msel=false;vscroll=1;z=3};
+sysidCtrl={cls="listview";left=0;top=0;right=269;bottom=533;db=1;dl=1;dt=1;edge=1;fullRow=1;gridLines=1;hscroll=1;vscroll=1;z=1}
 )
 /*}}*/
 
 var sysidCtrl = winform.sysidCtrl;
 var cmdidCtrl = winform.cmdidCtrl;
 var detailCtrl = winform.detailCtrl;
-var sysidAdd = winform.sysidAdd;
-var sysidDel = winform.sysidDel;
-var sysidModify = winform.sysidModify;
-var cmdAdd = winform.cmdAdd;
-var cmdDel = winform.cmdDel;
-var cmdModify = winform.cmdModify;
-var fieldAdd = winform.fieldAdd;
-var fieldDel = winform.fieldDel;
-var fieldModify = winform.fieldModify;
-var fieldDown = winform.fieldDown;
-var fieldUp = winform.fieldUp;
-var btnWidth = 65;
-var btnHeight = 35;
 
 sysidCtrl.insertColumn("系统",35); //insertColumn(列名,列宽,位置,样式)
 sysidCtrl.insertColumn("名称", -1);
@@ -362,17 +338,6 @@ detailCtrl.onRightClick = function(item,subItem,nmListView){
 	winform.popmenuField.popup(); //弹出菜单
 }
 
-/*
-var btnBackground = { 
-	hover = "/res/images/btn-hover.png";
-	focus = "/res/images/btn-focus.jpg";
-	active = "/res/images/btn-active.png";
-	disabled = "/res/images/btn-disabled.png"; 
-};
-sysidModify.skin(background = btnBackground,);
-sysidAdd.skin(background = btnBackground,);
-sysidDel.skin(background = btnBackground,);
-*/
 
 //当鼠标指针移到控件上,切换鼠标为手形
 import win.cur;
@@ -390,24 +355,10 @@ cmdidCtrl.wndproc = function(hwnd,message,wParam,lParam){
 
 //窗口缩放后会自动触发此函数
 winform.adjust = function( cx,cy,wParam ) {
-	var lstviewHeight = cy-50;
+	var lstviewHeight = cy - 5;
 	sysidCtrl.setPos(0, 0, 300, lstviewHeight);
 	cmdidCtrl.setPos(sysidCtrl.right+5, 0, 500, lstviewHeight);
 	detailCtrl.setPos(cmdidCtrl.right+5, 0, winform.width-cmdidCtrl.right-5, lstviewHeight);
-	
-	sysidAdd.setPos(sysidCtrl.left, sysidCtrl.height+5, btnWidth, btnHeight);
-	sysidDel.setPos(sysidAdd.right+5, sysidAdd.top, btnWidth, btnHeight);
-	sysidModify.setPos(sysidDel.right+5, sysidAdd.top, btnWidth, btnHeight);
-	
-	cmdAdd.setPos(cmdidCtrl.left, cmdidCtrl.height+5, btnWidth, btnHeight);
-	cmdDel.setPos(cmdAdd.right+5, cmdAdd.top, btnWidth, btnHeight);
-	cmdModify.setPos(cmdDel.right+5, cmdAdd.top, btnWidth, btnHeight);
-	
-	fieldAdd.setPos(detailCtrl.left, detailCtrl.height+5, btnWidth, btnHeight);
-	fieldDel.setPos(fieldAdd.right+5, fieldAdd.top, btnWidth, btnHeight);
-	fieldModify.setPos(fieldDel.right+5, fieldAdd.top, btnWidth, btnHeight);
-	fieldUp.setPos(fieldModify.right+5,  fieldAdd.top, 80, btnHeight);
-	fieldDown.setPos(fieldUp.right+5, fieldAdd.top, 80, btnHeight);
 };
 
 sysidCtrl.onnotify = function(id,code,ptr){
@@ -498,53 +449,6 @@ sysidCtrl.onClick = function(item,subItem,nmListView){
   	refreshCmdList(sysid);
 }
 
-//增加系统id
-sysidAdd.oncommand = function(id,event){
-	var dlg = winform.loadForm("\dlg\addsysid.aardio");
-	dlg.doModal();
-	//LOG_DEBUG("refreshSysId", dlg.refreshSysId);
-	if dlg.refreshSysId {
-		initSysidCtrl();
-	}
-}
-
-//删除系统id
-sysidDel.oncommand = function(id,event){
-	var row = sysidCtrl.getSelection();
-	if row < 1 {
-		return; 
-	}
-	var sysId = tonumber(sysidCtrl.getItemText(row, 1));
-	var ok = winform.msgboxTest("你确定要删除吗？sysId="+sysId,"提示");
-    if(ok){
-       var xmlDoc = systool.GetSysIdXmlDoc();
-		for(index, systemNode in xmlDoc.eachNode("system")){
-			var sysId2 = tonumber(systemNode.getAttribute("id"));
-			if sysId == sysId2 {
-				systemNode.setAttribute("hide", 1);
-				initSysidCtrl();
-				break;
-			}
-		}
-    }
-}
-
-//修改系统id
-sysidModify.oncommand = function(id,event){
-	var row = sysidCtrl.getSelection();
-	if row < 1 {
-		return; 
-	}
-	var dlg = winform.loadForm("\dlg\modifysysid.aardio",
-	sysidCtrl.getItemText(row, 1),
-	sysidCtrl.getItemText(row, 2));
-	dlg.doModal();
-	//LOG_DEBUG("refreshSysId", dlg.refreshSysId);
-	if dlg.refreshSysId {
-		initSysidCtrl();
-	}
-}
-
 ///////////////////////////////// sysidCtrl end //////////////////////////////////////////
 
 ///////////////////////////////// cmdidCtrl //////////////////////////////////////////
@@ -619,278 +523,11 @@ function refreshFieldList(cmdNode){
 	}
 }
 
-
 function initCmdidCtrl(cmdList){
 	cmdidCtrl.clear();
 	detailCtrl.clear();
 	for _, item in cmdList{
 		cmdidCtrl.addItem(item);
-	}
-}
-
-cmdidCtrl.onDoubleClick = function(item,subItem,nmListView){
-     var _, cmdtxt = cmdidCtrl.getSelection(, 2);
-    var newValue = win.inputBox("请输入新值", "修改单元格", cmdtxt);
-     cmdidCtrl.setItemText(tostring(newValue), item, subItem);
-    if(newValue){
-        // 修改单元格内容
-       // cmdidCtrl.setItemText(newValue, item, subItem);
-    }
-}
-
-
-//加系统命令
-cmdAdd.oncommand = function(id,event){
-	var sysId = systool.GetNowSysId();
-	if not sysId and sysId != 0 {
-		return; 
-	}
-	var dlg = winform.loadForm("\dlg\addcmd.aardio");
-	dlg.doModal();
-	if dlg.refreshSysId {
-		refreshCmdList(sysId);
-	}
-}
-
-//删除系统命令
-cmdDel.oncommand = function(id,event){
-	var row = cmdidCtrl.getSelection();
-	if row < 1 {
-		return; 
-	}
-	var cmdId = tonumber(cmdidCtrl.getItemText(row, 1));
-	var cmdSrc = cmdidCtrl.getItemText(row, 2);
-	var ok = winform.msgboxTest("确定要删除吗？命令: "+cmdId+" 来源: "+cmdSrc ,"提示");
-	if not ok {
-		return; 
-	}
-	var sysId = systool.GetNowSysId();
-	var filePath = string.format("/protocol/%s.xml", sysId);
-  	var xmlDoc = web.msxml();
-  	xmlDoc.load(filePath);
-	var root = xmlDoc.documentElement;
-	var protocolsNode = root.selectSingleNode("/protocols");
-	var childNodes = protocolsNode.childNodes;
-	var from = 0;
-	if cmdSrc == "前端" {
-		from = 1;
-	}
-	elseif cmdSrc == "后端" {
-		from = 2;
-	}
-	for(index = 0; childNodes.length-1; 1){
-		var cmdNode = childNodes(index);
-		if cmdNode.getAttribute("id") == cmdId and 
-		   cmdNode.getAttribute("from") == from {
-			protocolsNode.removeChild(cmdNode);
-			xmlDoc.save(filePath);
-			refreshCmdList(sysId);
-			break;
-		}
-	}
-}
-
-//修改系统命令
-cmdModify.oncommand = function(id,event){
-	var row = cmdidCtrl.getSelection();
-	if row < 1 {
-		return; 
-	}
-	var cmdId = tonumber(cmdidCtrl.getItemText(row, 1));
-	var cmdSrc = cmdidCtrl.getItemText(row, 2);
-	var cmdName = cmdidCtrl.getItemText(row, 3);
-	var from = 0;
-	if cmdSrc == "前端" {
-		from = 1;
-	}
-	elseif cmdSrc == "后端" {
-		from = 2;
-	}
-	var dlg = winform.loadForm("\dlg\modifycmd.aardio", cmdId, from, cmdName);
-	dlg.doModal();
-	if dlg.refreshCmdId {
-		var sysId = systool.GetNowSysId();
-		refreshCmdList(sysId);
-	}
-}
-
-///////////////////////////////// cmdidCtrl end //////////////////////////////////////////
-//加字段
-winform.fieldAdd.oncommand = function(id,event){
-	if not systool.GetNowCmdId() {
-		return; 
-	}
-	var dlg = winform.loadForm("\dlg\addfield.aardio");
-	dlg.doModal();
-	if dlg.refreshField {
-		refreshFieldList();
-	}
-}
-
-//删字段
-winform.fieldDel.oncommand = function(id,event){
-	var row = detailCtrl.getSelection();
-	if row < 1 {
-		return; 
-	}
-	var varName = detailCtrl.getItemText(row, 3);
-	var ok = winform.msgboxTest("确定要删除吗？变量: "+varName,"提示");
-	if not ok {
-		return; 
-	}
-	var sysId = systool.GetNowSysId();
-	var cmdId = systool.GetNowCmdId();
-	var cmdFrom = systool.GetNowCmdFrom();
-	var filePath = string.format("/protocol/%s.xml", sysId);
-	var xmlDoc = web.msxml();
-	xmlDoc.load(filePath);
-	var root = xmlDoc.documentElement;
-	var protocolsNode = root.selectSingleNode("/protocols");
-	var cmdNodeList = protocolsNode.selectNodes("cmd");
-	for index = 0; cmdNodeList.length - 1; 1 {
-		var cmdNode = cmdNodeList(index);
-		if cmdId == tonumber(cmdNode.getAttribute("id")) and 
-			cmdFrom == tonumber(cmdNode.getAttribute("from")) {
- 				var fieldNodeList = cmdNode.selectNodes("field");
-				for index2 = 0; fieldNodeList.length - 1; 1 {
-					var fieldNode = fieldNodeList(index2);
-					if fieldNode.getAttribute("name") == varName {
-						cmdNode.removeChild(fieldNode);
-						xmlDoc.save(filePath);
-						refreshFieldList(cmdNode);
-						return;
-					}
-				}
-		}
-	}
-}
-
-//改字段
-winform.fieldModify.oncommand = function(id,event){
-	var row = detailCtrl.getSelection();
-	if row < 1 {
-		return; 
-	}
-	var varType = detailCtrl.getItemText(row, 2);
-	var varName = detailCtrl.getItemText(row, 3);
-	var nameDesc = detailCtrl.getItemText(row, 4);
-	var dlg = winform.loadForm("\dlg\modifyfield.aardio", varType, varName, nameDesc);
-	dlg.doModal();
-	if dlg.refreshField {
-		refreshFieldList();
-	}
-}
-
-//上移字段
-winform.fieldUp.oncommand = function(id,event){
-	//msXmlNodeObject.insertBefore(插入新节点,子节点)
-	var row = detailCtrl.getSelection();
-	if row < 1 {
-		return; 
-	}
-	var varName = detailCtrl.getItemText(row, 3);
-	var sysId = systool.GetNowSysId();
-	var cmdId = systool.GetNowCmdId();
-	var cmdFrom = systool.GetNowCmdFrom();
-	
-	var filePath = string.format("/protocol/%s.xml", sysId);
-	var xmlDoc = web.msxml();
-	xmlDoc.load(filePath);
-	var root = xmlDoc.documentElement;
-	var protocolsNode = root.selectSingleNode("/protocols");
-	var cmdNodeList = protocolsNode.selectNodes("cmd");
-	
-	for index = 0; cmdNodeList.length - 1; 1 {
-		var cmdNode = cmdNodeList(index);
-		if cmdId == tonumber(cmdNode.getAttribute("id")) and cmdFrom == tonumber(cmdNode.getAttribute("from")) {
-			var fieldNodeList = cmdNode.selectNodes("field");
-			var fieldNodeNew;
-			var index3 = 0;
-			for index2 = 0; fieldNodeList.length - 1; 1 {
-				var fieldNode = fieldNodeList(index2);
-				if fieldNode.getAttribute("name") == varName {
-					if index2 == 0 {
-						return; 
-					}
-					fieldNodeNew = fieldNode.cloneNode();
-					cmdNode.removeChild(fieldNode);
-					index3 = index2 - 1;
-					break;
-				}
-			}
-			for index2 = 0; fieldNodeList.length - 1; 1 {
-				var fieldNode = fieldNodeList(index2);
-				if index2 == index3 {
-					cmdNode.insertBefore(fieldNodeNew, fieldNode);
-					var xmlstr = string.replace(xmlDoc.xml,"@</field></cmd>",'</field>\n</cmd>'); //禁用模式匹配替换
-					var xmlDoc = web.msxml(xmlstr);
-					xmlDoc.save(filePath);
-					refreshFieldList(cmdNode);
-					return;
-				}
-			}
-		}
-	}
-}
-
-//下移字段
-winform.fieldDown.oncommand = function(id,event){
-	var row = detailCtrl.getSelection();
-	if row < 1 {
-		return; 
-	}
-	var varName = detailCtrl.getItemText(row, 3);
-	var sysId = systool.GetNowSysId();
-	var cmdId = systool.GetNowCmdId();
-	var cmdFrom = systool.GetNowCmdFrom();
-	
-	var filePath = string.format("/protocol/%s.xml", sysId);
-	var xmlDoc = web.msxml();
-	xmlDoc.load(filePath);
-	var root = xmlDoc.documentElement;
-	var protocolsNode = root.selectSingleNode("/protocols");
-	var cmdNodeList = protocolsNode.selectNodes("cmd");
-	
-	for index = 0; cmdNodeList.length - 1; 1 {
-		var cmdNode = cmdNodeList(index);
-		if cmdId == tonumber(cmdNode.getAttribute("id")) and cmdFrom == tonumber(cmdNode.getAttribute("from")) {
-			var fieldNodeList = cmdNode.selectNodes("field");
-			var fieldNodeNew;
-			var index3 = 0;
-			for index2 = 0; fieldNodeList.length - 1; 1 {
-				var fieldNode = fieldNodeList(index2);
-				if fieldNode.getAttribute("name") == varName {
-					if index2 == fieldNodeList.length - 1 {
-						return; 
-					}
-					fieldNodeNew = fieldNode.cloneNode();
-					cmdNode.removeChild(fieldNode);
-					index3 = index2 + 1;
-					break;
-				}
-			}
-			//LOG_DEBUG("index3", index3);
-			fieldNodeList = cmdNode.selectNodes("field");
-			for index2 = 0; fieldNodeList.length - 1; 1 {
-				//LOG_DEBUG("index2", index2, "index3", index3);
-				var fieldNode = fieldNodeList(index2);
-				if index2 == index3 {
-					cmdNode.insertBefore(fieldNodeNew, fieldNode);
-					var xmlstr = string.replace(xmlDoc.xml,"@</field></cmd>",'</field>\n</cmd>'); //禁用模式匹配替换
-					var xmlDoc = web.msxml(xmlstr);
-					xmlDoc.save(filePath);
-					refreshFieldList(cmdNode);
-					//LOG_DEBUG("ok");
-					return;
-				}
-			}
-			cmdNode.appendChild(fieldNodeNew);
-			var xmlstr = string.replace(xmlDoc.xml,"@</field></cmd>",'</field>\n</cmd>'); //禁用模式匹配替换
-			var xmlDoc = web.msxml(xmlstr);
-			xmlDoc.save(filePath);
-			refreshFieldList(cmdNode);
-			//LOG_DEBUG("ok2");
-		}
 	}
 }
 
