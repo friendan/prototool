@@ -41,6 +41,7 @@ winform.btnSure.oncommand = function(id,event){
 		if sysId == sysId2 {
 			var nameNode = systemNode.selectSingleNode("name");
 			nameNode.Text = sysName;
+			systool.SaveSysIdXmlDoc(xmlDoc);
 			break;
 		}
 	}

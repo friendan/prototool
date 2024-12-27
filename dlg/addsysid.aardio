@@ -71,6 +71,7 @@ winform.btnSure.oncommand = function(id,event){
 	}
 	
 	//tipInfo.text = "新增系统成功";
+	systool.SaveSysIdXmlDoc(xmlDoc);
 	winform.refreshSysId = true;
 	winform.close();
 	

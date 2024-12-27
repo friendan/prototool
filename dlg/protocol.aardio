@@ -78,6 +78,7 @@ winform.popmenuSysId.add("删除系统",function(id){
 			var sysId2 = tonumber(systemNode.getAttribute("id"));
 			if sysId == sysId2 {
 				systemNode.setAttribute("hide", 1);
+				systool.SaveSysIdXmlDoc(xmlDoc);
 				initSysidCtrl();
 				break;
 			}

@@ -17,6 +17,10 @@ function GetSysIdXmlDoc(){
 	return gSydIdXmlDoc; 
 }
 
+function SaveSysIdXmlDoc(xmlDoc){
+	xmlDoc.save(PROTOCOL_SYSFILE_PATH);
+}
+
 function SetNowSysId(sysid){
 	nowSysId = sysid;
 }
