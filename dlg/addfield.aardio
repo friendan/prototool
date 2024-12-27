@@ -3,9 +3,9 @@ import web.msxml;
 import systool;
 import log;
 /*DSG{{*/
-var winform = win.form(text="加协议字段";right=759;bottom=469)
+var winform = win.form(text="加协议字段";right=759;bottom=469;border="dialog frame";max=false;min=false)
 winform.add(
-btnSure={cls="plus";text="确定";left=297;top=103;right=387;bottom=137;bgcolor=11580047;db=1;dr=1;font=LOGFONT(h=-16;name='FontAwesome');notify=1;tabstop=1;z=7};
+btnSure={cls="plus";text="确定";left=297;top=104;right=387;bottom=138;bgcolor=11580047;db=1;dr=1;font=LOGFONT(h=-16;name='FontAwesome');notify=1;tabstop=1;z=7};
 cmbTypeList={cls="combobox";left=60;top=44;right=270;bottom=70;edge=1;items={};mode="dropdown";z=3};
 nameDesc={cls="edit";left=60;top=168;right=721;bottom=435;edge=1;hscroll=1;multiline=1;vscroll=1;z=6};
 static={cls="static";text="数据类型：";left=59;top=22;right=127;bottom=42;transparent=1;z=1};

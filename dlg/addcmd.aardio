@@ -3,17 +3,17 @@ import web.msxml;
 import systool;
 import log;
 /*DSG{{*/
-var winform = win.form(text="新增系统命令";right=682;bottom=363;max=false;min=false)
+var winform = win.form(text="新增系统命令";right=540;bottom=194;border="dialog frame";max=false;min=false)
 winform.add(
-btnSure={cls="plus";text="确定";left=123;top=167;right=213;bottom=201;bgcolor=11580047;db=1;dr=1;font=LOGFONT(h=-16;name='FontAwesome');notify=1;tabstop=1;z=6};
-cmdId={cls="edit";left=123;top=43;right=213;bottom=73;edge=1;num=1;z=4};
-cmdName={cls="edit";left=123;top=101;right=603;bottom=136;edge=1;z=5};
-groupbox={cls="groupbox";text="来源：";left=241;top=36;right=439;bottom=90;edge=1;z=1};
-radioClient={cls="radiobutton";text="前端";left=289;top=56;right=348;bottom=85;z=8};
-radioServer={cls="radiobutton";text="后端";left=358;top=56;right=417;bottom=85;z=9};
-static={cls="static";text="命令id：";left=56;top=49;right=113;bottom=73;transparent=1;z=2};
-static2={cls="static";text="命令名称：";left=44;top=100;right=113;bottom=126;transparent=1;z=3};
-tipInfo={cls="static";text="Static";left=238;top=169;right=478;bottom=205;color=255;transparent=1;z=7}
+btnSure={cls="plus";text="确定";left=415;top=76;right=505;bottom=110;bgcolor=11580047;db=1;dr=1;font=LOGFONT(h=-16;name='FontAwesome');notify=1;tabstop=1;z=6};
+cmdId={cls="edit";left=87;top=16;right=177;bottom=46;edge=1;num=1;z=4};
+cmdName={cls="edit";left=87;top=74;right=403;bottom=109;edge=1;z=5};
+groupbox={cls="groupbox";text="来源：";left=205;top=9;right=403;bottom=63;edge=1;z=1};
+radioClient={cls="radiobutton";text="前端";left=253;top=29;right=312;bottom=58;z=8};
+radioServer={cls="radiobutton";text="后端";left=322;top=29;right=381;bottom=58;z=9};
+static={cls="static";text="命令id：";left=20;top=22;right=77;bottom=46;transparent=1;z=2};
+static2={cls="static";text="命令名称：";left=8;top=73;right=77;bottom=99;transparent=1;z=3};
+tipInfo={cls="static";text="Static";left=88;top=124;right=399;bottom=160;color=255;transparent=1;z=7}
 )
 /*}}*/
 
@@ -76,8 +76,9 @@ winform.btnSure.oncommand = function(id,event){
 	var xmlstr = string.replace(xmlDoc.xml,"@</cmd></protocols>",'</cmd>\n</protocols>'); //禁用模式匹配替换
 	var xmlDoc = web.msxml(xmlstr);
 	xmlDoc.save(filePath);
-	tipInfo.text = "命令添加成功!";
+	//tipInfo.text = "命令添加成功!";
 	winform.refreshSysId = true;
+	winform.close();
 }
 
 winform.show();
