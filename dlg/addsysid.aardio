@@ -4,14 +4,14 @@ import config;
 import web.msxml;
 import systool;
 /*DSG{{*/
-var winform = win.form(text="新增系统";right=529;bottom=261;max=false;min=false)
+var winform = win.form(text="新增系统";right=369;bottom=170;border="dialog frame";max=false;min=false)
 winform.add(
-btnSure={cls="plus";text="确定";left=114;top=187;right=204;bottom=221;bgcolor=11580047;db=1;dr=1;font=LOGFONT(h=-16;name='FontAwesome');notify=1;tabstop=1;z=5};
-static={cls="static";text="系统id：";left=114;top=18;right=191;bottom=44;transparent=1;z=1};
-static2={cls="static";text="系统名称：";left=114;top=105;right=191;bottom=131;transparent=1;z=2};
-sysId={cls="edit";left=112;top=44;right=202;bottom=74;edge=1;num=1;z=3};
-sysName={cls="edit";left=113;top=138;right=364;bottom=173;edge=1;z=4};
-tipInfo={cls="static";text="Static";left=226;top=193;right=466;bottom=229;color=255;transparent=1;z=6}
+btnSure={cls="plus";text="确定";left=204;top=80;right=294;bottom=114;bgcolor=11580047;db=1;dr=1;font=LOGFONT(h=-16;name='FontAwesome');notify=1;tabstop=1;z=5};
+static={cls="static";text="系统id：";left=17;top=14;right=72;bottom=37;transparent=1;z=1};
+static2={cls="static";text="系统名称：";left=14;top=58;right=91;bottom=84;transparent=1;z=2};
+sysId={cls="edit";left=81;top=12;right=174;bottom=42;edge=1;num=1;z=4};
+sysName={cls="edit";left=19;top=80;right=178;bottom=114;edge=1;z=3};
+tipInfo={cls="static";text="Static";left=19;top=129;right=330;bottom=165;color=255;transparent=1;z=6}
 )
 /*}}*/
 
@@ -70,8 +70,9 @@ winform.btnSure.oncommand = function(id,event){
 		}
 	}
 	
-	tipInfo.text = "新增系统成功";
+	//tipInfo.text = "新增系统成功";
 	winform.refreshSysId = true;
+	winform.close();
 	
 	/**
 	var xmlstr =/*<?xml version="1.0" encoding="utf-8"?>
