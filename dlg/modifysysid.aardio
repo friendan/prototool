@@ -3,14 +3,14 @@ import log;
 import config;
 import systool;
 /*DSG{{*/
-var winform = win.form(text="修改系统";right=554;bottom=298;max=false;min=false)
+var winform = win.form(text="修改系统";right=314;bottom=216;border="dialog frame";max=false;min=false)
 winform.add(
-btnSure={cls="plus";text="确定";left=124;top=197;right=214;bottom=231;bgcolor=11580047;db=1;dr=1;font=LOGFONT(h=-16;name='FontAwesome');notify=1;tabstop=1;z=5};
-static={cls="static";text="系统id：";left=124;top=28;right=201;bottom=54;transparent=1;z=1};
-static2={cls="static";text="系统名称：";left=124;top=115;right=201;bottom=141;transparent=1;z=2};
-sysId={cls="edit";left=124;top=55;right=214;bottom=85;edge=1;num=1;readonly=1;z=3};
-sysName={cls="edit";left=124;top=147;right=375;bottom=182;edge=1;z=4};
-tipInfo={cls="static";text="Static";left=236;top=203;right=476;bottom=239;color=255;transparent=1;z=6}
+btnSure={cls="plus";text="确定";left=222;top=116;right=299;bottom=150;bgcolor=11580047;db=1;dr=1;font=LOGFONT(h=-16;name='FontAwesome');notify=1;tabstop=1;z=5};
+static={cls="static";text="系统id：";left=17;top=13;right=94;bottom=39;transparent=1;z=1};
+static2={cls="static";text="系统名称：";left=19;top=89;right=96;bottom=115;transparent=1;z=2};
+sysId={cls="edit";left=17;top=40;right=107;bottom=70;edge=1;num=1;readonly=1;z=3};
+sysName={cls="edit";left=18;top=116;right=214;bottom=151;edge=1;z=4};
+tipInfo={cls="static";text="Static";left=20;top=163;right=260;bottom=199;color=255;transparent=1;z=6}
 )
 /*}}*/
 
@@ -45,8 +45,9 @@ winform.btnSure.oncommand = function(id,event){
 		}
 	}
 	
-	tipInfo.text = "修改系统成功";
+	//tipInfo.text = "修改系统成功";
 	winform.refreshSysId = true;
+	winform.close();
 }
 
 winform.show();
