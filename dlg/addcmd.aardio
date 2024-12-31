@@ -23,12 +23,13 @@ tipInfo.text = "";
 
 winform.btnSure.oncommand = function(id,event){
 	tipInfo.text = "";
+	var sysId = systool.GetNowSysId();
 	var cmdId = tonumber(winform.cmdId.text);
 	if not cmdId and cmdId != 0{
 		tipInfo.text = "命令id不能为空";
 		return; 
 	}
-	if cmdId < 0 or cmdId > 255{
+	if sysId != 1111 and (cmdId < 0 or cmdId > 255){
 		tipInfo.text = "命令id范围是0到255";
 		return; 
 	}
@@ -46,7 +47,6 @@ winform.btnSure.oncommand = function(id,event){
 		fromText = winform.radioServer.text;
 	}
 	
-	var sysId = systool.GetNowSysId();
 	var filePath = string.format("/protocol/%s.xml", sysId);
 	//LOG_DEBUG("filePath", filePath);
 	var xmlDoc = web.msxml();
