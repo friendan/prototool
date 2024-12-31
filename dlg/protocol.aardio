@@ -24,7 +24,7 @@ sysidCtrl.insertColumn("名称", -1);
 sysidCtrl.gridLines = true;
 sysidCtrl.fullRow = true;
 
-cmdidCtrl.insertColumn("命令",35);
+cmdidCtrl.insertColumn("命令",40);
 cmdidCtrl.insertColumn("来源",45);
 cmdidCtrl.insertColumn("名称", -1);
 cmdidCtrl.gridLines = true;
